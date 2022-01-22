@@ -1,2 +1,2 @@
-// create format for pet detail info
-//use bulma card
+//individual pet detail page
+//use BULMA card format here

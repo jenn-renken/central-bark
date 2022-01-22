@@ -1,11 +1,10 @@
 const { Schema } = require('mongoose');
 
 const petSchema = new Schema({
-    parent: [
-        {
+    username:{
           type: String,
+          required: true
         },
-      ],
   petPersonality: {
     type: String,
     required: true,
