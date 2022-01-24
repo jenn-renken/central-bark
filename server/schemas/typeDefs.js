@@ -23,7 +23,7 @@ const typeDefs = gql`
     user: User
   }
   type Query {
-    me: User
+    profile: User
     users: [User]
     user(username: String!): User
     pets(username: String): [Pet]
@@ -34,6 +34,12 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     addPet( 
         petPersonality: String!
+        petPreference: String!
+        petBreed: String!
+        name: String!
+        image: String!): Pet
+  removePet(
+    petPersonality: String!
         petPreference: String!
         petBreed: String!
         name: String!

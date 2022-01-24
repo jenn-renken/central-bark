@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const petSchema = new Schema({
     username:{
@@ -11,7 +11,7 @@ const petSchema = new Schema({
   },
   petPreference: {
       type: String,
-      required,
+      required: true
   },
   petBreed: {
       type: String,
