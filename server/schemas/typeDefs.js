@@ -33,17 +33,12 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addPet( 
-        petPersonality: String!
-        petPreference: String!
-        petBreed: String!
-        name: String!
+        petPersonality: String!,
+        petPreference: String!,
+        petBreed: String!,
+        name: String!,
         image: String!): Pet
-  removePet(
-    petPersonality: String!
-        petPreference: String!
-        petBreed: String!
-        name: String!
-        image: String!): Pet
+  removePet(petId: ID!): Pet
   }
   `;
 

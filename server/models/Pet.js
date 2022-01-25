@@ -41,6 +41,7 @@ const petSchema = new Schema({
 });
 
 //do we need a pet model here?
-const Pet = model('Pet', petSchema);
+ const Pet = model('Pet', petSchema);
 
-module.exports = petSchema;
+  // module.exports = petSchema;
+
