@@ -61,6 +61,7 @@ const resolvers = {
       return { token, user };
     },
     addPet: async (parent, args, context) => {
+      console.log(args);
       if (context.user) {
         const pet = await Pet.create({ ...args, username: context.user.username });
 

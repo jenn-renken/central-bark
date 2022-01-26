@@ -22,7 +22,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    savedPets: [petSchema],
+    pets: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Pet'
+      }
+    ]
+  //   savedPets: [petSchema],
   },
   {
     toJSON: {
@@ -40,6 +46,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+// compare the incoming password with the hashed password
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
