@@ -5,7 +5,7 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    pets: [Pet]
+    savedPets: [Pet]
   }
 
   type Pet {
@@ -14,10 +14,17 @@ const typeDefs = gql`
     petPreference: String
     petBreed: String
     createdAt: String
-    username: String
     name: String
     image: String
   }
+  input savedPets {
+    petPersonality: String
+    petPreference: String
+    petBreed: String
+    createdAt: String
+    name: String
+    image: String
+}
   type Auth {
     token: ID!
     user: User
@@ -37,8 +44,8 @@ const typeDefs = gql`
         petPreference: String!,
         petBreed: String!,
         name: String!,
-        image: String!): Pet
-  removePet(petId: ID!): Pet
+        image: String!): User
+  removePet(_id: ID!): User
   }
   `;
 

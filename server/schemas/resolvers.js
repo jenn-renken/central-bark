@@ -28,10 +28,17 @@ const resolvers = {
         // .populate('friends')
         .populate('pets');
     },
-    pets: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Pet.find(params).sort({ createdAt: -1 });
+    pets: async (parent, args, context) => {
+
+      if (context.user) {
+        const _user = await User.findById(context.user.id);
+        console.log(_user.savedPets)
+        return _user.savedPets;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
     },
+
     pet: async (parent, { _id }) => {
       return Pet.findOne({ _id });
     }
@@ -61,17 +68,21 @@ const resolvers = {
       return { token, user };
     },
     addPet: async (parent, args, context) => {
-      console.log(args);
-      if (context.user) {
-        const pet = await Pet.create({ ...args, username: context.user.username });
-
-        await User.findByIdAndUpdate(
+      if (context.user._id) {
+        // make pet MODEL instead of just schema
+        // add userId field to pet model
+        // create new pet with context.user._id as the userId field
+        
+        const pet = args;
+        console.log(pet)
+        const updated = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { pets: pet._id } },
+          { $push: { savedPets: pet} },
           { new: true }
         );
+        console.log(updated)
 
-        return pet;
+        return updated;
       }
 
       throw new AuthenticationError('You need to be logged in!');
@@ -80,7 +91,7 @@ const resolvers = {
         if(context.user) {
         const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { savedPets: { petId: args.petId } } },
+            { $pull: { savedPets: { _id: args._id } } },
             { new: true }
         );
 
