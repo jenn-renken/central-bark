@@ -68,7 +68,7 @@ const resolvers = {
       return { token, user };
     },
     addPet: async (parent, args, context) => {
-      if (context.user) {
+      if (context.user._id) {
         // make pet MODEL instead of just schema
         // add userId field to pet model
         // create new pet with context.user._id as the userId field
