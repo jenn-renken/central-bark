@@ -22,13 +22,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    pets: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Pet'
-      }
-    ]
-  //   savedPets: [petSchema],
+    // pets: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Pet'
+    //   }
+    // ]
+    savedPets: [petSchema],
   },
   {
     toJSON: {

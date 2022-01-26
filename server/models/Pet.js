@@ -1,10 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const petSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-  },
+  // username: {
+  //   type: String,
+  //   required: true,
+  // },
   petPersonality: {
     type: String,
     required: true,
@@ -41,6 +41,6 @@ const petSchema = new Schema({
 });
 
 //do we need a pet model here?
-const Pet = model('Pet', petSchema);
+// const Pet = model('Pet', petSchema);
 
-module.exports = Pet;
+module.exports = petSchema;
