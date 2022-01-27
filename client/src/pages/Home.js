@@ -1,23 +1,45 @@
-import React from "react";
-// import '../../index.css';
+import React from 'react';
+import { useQuery } from '@apollo/client';
+import { QUERY_PETS, QUERY_ME_BASIC } from '../utils/queries';
+import PetGallery from '../components/PetGallery';
+import Auth from '../utils/auth';
+// import FriendList from '../components/FriendList';
+import PetForm from '../components/PetForm';
 
-const Home = () => (
-<div>
-   <section className="hero is-medium has-background-primary-light	">
-    <div className="hero-body">
-      <p className="title has-text-primary-dark	">
-        Jennifer Renken
-      </p>
-      <p className="subtitle">
-        Professional Portfolio
-      </p>
-    </div>
-    <figure className="image is-3by1">
-    <img src={require("../../assets/pic_ocean.png")} />
+const Home = () => {
+  const { loading, data } = useQuery(QUERY_PETS);
+  const { data: userData } = useQuery(QUERY_ME_BASIC);
+  const pets = data?.pets || [];
+  console.log(pets);
+  const loggedIn = Auth.loggedIn();
 
-    </figure>
-   </section>
-</div>
-);
+  return (
+    <main>   
+      <div className='flex-row justify-space-between'>
+        {loggedIn && (
+          <div className='col-12 mb-3'>
+            <PetForm />
+          </div>
+        )}
+      <div className={`col-12 mb-3 ${loggedIn && 'col-lg-8'}`}>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <PetGallery pets={pets} title="Make some new friends!" />
+        )}
+      </div>
+      {/* {loggedIn && userData ? (
+      <div className="col-12 col-lg-3 mb-3">
+          <FriendList
+            username={userData.me.username}
+            friendCount={userData.me.friendCount}
+            friends={userData.me.friends}
+          />
+        </div>
+      ) : null} */}
+      </div>
+    </main>
+  );
+};
 
 export default Home;
