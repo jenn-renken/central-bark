@@ -28,21 +28,27 @@ const resolvers = {
         // .populate('friends')
         .populate('pets');
     },
-    pets: async (parent, args, context) => {
-
-      if (context.user) {
-        const _user = await User.findById(context.user.id);
-        console.log(_user.savedPets)
-        return _user.savedPets;
-      }
-
-      throw new AuthenticationError('You need to be logged in!');
+    pets: async (parent, {username}) => {
+      const params = username ? { username } : {};
+      return Pet.find(params).sort({ createdAt: -1 });
     },
-
     pet: async (parent, { _id }) => {
       return Pet.findOne({ _id });
-    }
+    },
   },
+    //   if (context.user) {
+    //     const _user = await User.findById(context.user);
+    //     console.log(_user.savedPets)
+    //     return _user.savedPets;
+    //   }
+
+    //    throw new AuthenticationError('You need to be logged in!');
+    // },
+
+  //   pet: async (parent, { _id }) => {
+  //     return Pet.findOne({ _id });
+  //   }
+  // },
 
   Mutation: {
     addUser: async (parent, args) => {
