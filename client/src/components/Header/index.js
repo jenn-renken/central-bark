@@ -10,27 +10,49 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-secondary mb-4 py-2 flex-row align-center">
-      <div className="container flex-row justify-space-between-lg justify-center align-center">
-        <Link to="/">
-          <h1>Pets</h1>
-        </Link>
+    <nav className="navbar" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand">
 
-        <nav className='text-center'>
-          {Auth.loggedIn() ? (
-            <>
-              <Link to="/profile">Profile</Link>
-              <a href="/" onClick={logout}>Logout</a>
-            </>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </>
-          )}
-        </nav>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div id="navbarBasicExample" className='navbar-menu'>
+            <div className='navbar-start'>
+                <a className='navbar-item'>
+                    <Link to="/">
+                        <h1>CentralBark</h1>
+                    </Link>
+                </a>
+            </div>
+        </div>
+
+            <div className='navbar-item'>
+                
+                        {Auth.loggedIn() ? (
+                            <>
+                            <Link to="/profile">Profile</Link>
+                            <a href="/" onClick={logout}>Logout</a>
+                            </>
+                        ) : (
+                            <>
+                            <div className='navbar-end'>
+                                <div className='buttons'>
+                                    <div className='button is-primary'>
+                                        <Link to="/login">Login</Link>
+                                    </div>
+                                    <div className='button is-light'>
+                                        <Link to="/signup">Signup</Link>
+                                    </div>
+                                </div>
+                            </div>
+                            </>
+                            
+                        )}
+        </div>
       </div>
-    </header>
+    </nav>
   );
 };
 
