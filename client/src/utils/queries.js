@@ -1,16 +1,17 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_PETS = gql`
-    query pets($username: String) {
-        pets(username: $username) {
-            _id
-            petPersonality
-            petPreference
-            petBreed
-            name
-            createdAt
-            username
-        }
+    query pets {
+      pets {
+        _id
+        petPersonality
+        petPreference
+        petBreed
+        name
+        createdAt
+        userId
+  }
+        
     }
 `;
 
