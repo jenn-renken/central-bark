@@ -12,6 +12,9 @@ const Header = () => {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
+          <a className='navbar-item'>
+              <img src={require("../../assets/images/logo.png")} />
+          </a>
 
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
@@ -32,8 +35,14 @@ const Header = () => {
                 
                         {Auth.loggedIn() ? (
                             <>
-                            <Link to="/profile">Profile</Link>
-                            <a href="/" onClick={logout}>Logout</a>
+                            <div className='navbar-item'>
+                                <Link to="/profile">Profile</Link>
+                            </div>
+                            <div className='buttons'>
+                                <div className='button is-link is-light'>
+                                    <a href="/" onClick={logout}>Logout</a>
+                                </div>
+                            </div>
                             </>
                         ) : (
                             <>
@@ -42,7 +51,7 @@ const Header = () => {
                                     <div className='button is-primary'>
                                         <Link to="/login">Login</Link>
                                     </div>
-                                    <div className='button is-light'>
+                                    <div className='button is-link is-light'>
                                         <Link to="/signup">Signup</Link>
                                     </div>
                                 </div>
