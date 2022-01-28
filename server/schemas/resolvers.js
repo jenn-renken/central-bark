@@ -28,9 +28,10 @@ const resolvers = {
         // .populate('friends')
         .populate('pets');
     },
-    pets: async (parent, {username}) => {
-      const params = username ? { username } : {};
-      return Pet.find(params).sort({ createdAt: -1 });
+    pets: async (parent, {_id}) => {
+      const params = _id ? { _id } : {};
+      return Pet.find(params);
+      
     },
     pet: async (parent, { _id }) => {
       return Pet.findOne({ _id });
@@ -81,16 +82,18 @@ const resolvers = {
         // create new pet with context.user._id as the userId field
         
         const pet = args;
+        pet.userId = context.user._id
         console.log(pet)
         const newPet = await Pet.create ( pet )
-        const updated = await User.findByIdAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $push: { pets: newPet._id} },
           { new: true }
         );
-        console.log(updated)
+        console.log(updatedUser)
+        updatedUser.pets = await Pet.find({"_id":  { $in: updatedUser.pets }})
 
-        return updated;
+        return updatedUser;
       }
 
       throw new AuthenticationError('You need to be logged in!');

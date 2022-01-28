@@ -16,6 +16,7 @@ const typeDefs = gql`
     createdAt: String
     name: String
     image: String
+    userId: ID
   }
   input savedPets {
     petPersonality: String
@@ -33,7 +34,7 @@ const typeDefs = gql`
     profile: User
     users: [User]
     user(username: String!): User
-    pets(username: String): [Pet]
+    pets(userId: ID): [Pet]
     pet(_id: ID!): Pet
   }
   type Mutation {
