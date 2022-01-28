@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { QUERY_PETS, QUERY_ME_BASIC } from '../utils/queries';
+import { QUERY_PETS, QUERY_PROFILE_BASIC } from '../utils/queries';
 import PetGallery from '../components/PetGallery';
 import Auth from '../utils/auth';
 // import FriendList from '../components/FriendList';
@@ -8,7 +8,7 @@ import PetForm from '../components/PetForm';
 
 const Home = () => {
   const { loading, data } = useQuery(QUERY_PETS);
-  const { data: userData } = useQuery(QUERY_ME_BASIC);
+  const { data: userData } = useQuery(QUERY_PROFILE_BASIC);
   const pets = data?.pets || [];
   console.log(pets);
   const loggedIn = Auth.loggedIn();
@@ -31,9 +31,9 @@ const Home = () => {
       {/* {loggedIn && userData ? (
       <div className="col-12 col-lg-3 mb-3">
           <FriendList
-            username={userData.me.username}
-            friendCount={userData.me.friendCount}
-            friends={userData.me.friends}
+            username={userData.profile.username}
+            friendCount={userData.profile.friendCount}
+            friends={userData.profile.friends}
           />
         </div>
       ) : null} */}

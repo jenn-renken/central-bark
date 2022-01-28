@@ -47,13 +47,12 @@ export const QUERY_USER = gql`
   }
 `;
 
-export const QUERY_ME = gql`
+export const QUERY_PROFILE = gql`
   {
-    me {
+    profile {
       _id
       username
       email
-      friendCount
       pets {
         _id
         petPersonality
@@ -67,9 +66,9 @@ export const QUERY_ME = gql`
   }
 `;
 
-export const QUERY_ME_BASIC = gql`
+export const QUERY_PROFILE_BASIC = gql`
 { 
-  me {
+  profile {
       _id
       username
       email

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from '../../assets/css/index.css';
+import '../../assets/css/index.css';
 
 const PetGallery = ({ pets, title }) => {
   if (!pets.length) {
@@ -12,8 +12,8 @@ const PetGallery = ({ pets, title }) => {
       <h3>{title}</h3>
       {pets &&
         pets.map((pet) => (
-          <div className="columns is-2">
-            <div key={pet._id} className="card ">
+          <div key={pet._id} className="columns is-2">
+            <div className="card ">
               <div className="card-image">
                 <figure className="image is-5by4">
                   <img
@@ -22,19 +22,19 @@ const PetGallery = ({ pets, title }) => {
                   ></img>
                 </figure>
               </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-left">
-                    <figure class="image is-48x48">
+              <div className="card-content">
+                <div className="media">
+                  <div className="media-left">
+                    <figure className="image is-48x48">
                       <img
                         src={require("../../assets/images/logo.png")}
                         alt="Placeholder image"
                       ></img>
                     </figure>
                   </div>
-                  <div class="media-content">
-                    <p class="title is-4">{pet.name}</p>
-                    <p class="subtitle is-6">{pet.petBreed}</p>
+                  <div className="media-content">
+                    <p className="title is-4">{pet.name}</p>
+                    <p className="subtitle is-6">{pet.petBreed}</p>
                   </div>
                 </div>
                 <div className="card-content">
@@ -47,17 +47,18 @@ const PetGallery = ({ pets, title }) => {
                       {pet.username}
                     </Link>{" "}
                   </p> */}
-                  <div className="content">
+                  <div>
                     <Link to={`/pet/${pet.userId}`}>
                       Connect with the pet parent!
                     </Link>
-
-                    <ul className={styles.ul}>
+                  
+                    <ul>
                       <li>Name: {pet.name}</li>
                       <li>Breed: {pet.petBreed}</li>
                       <li>Personality: {pet.petPersonality}</li>
                       <li>Pet Preferences: {pet.petPreference}</li>
                     </ul>
+                 
                     {/* <p className="mb-0">
                     Reactions: {pet.reactionCount} || Click to{' '}
                     {pet.reactionCount ? 'see' : 'start'} the discussion!

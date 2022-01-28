@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import PetGallery from '../components/PetGallery';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import { QUERY_USER, QUERY_PROFILE } from '../utils/queries';
 import Auth from '../utils/auth';
 import PetForm from '../components/PetForm';
 
@@ -11,11 +11,11 @@ const Profile = () => {
 
     // const [addFriend] = useMutation(ADD_FRIEND);
   
-    const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+    const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_PROFILE, {
       variables: { username: userParam }
     });
   
-    const user = data?.me || data?.user || {};
+    const user = data?.profile || data?.user || {};
 
     if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
       return <Redirect to ='/profile' />;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PET } from "../../utils/mutations";
-import { QUERY_PETS, QUERY_ME } from "../../utils/queries";
+import { QUERY_PETS, QUERY_PROFILE } from "../../utils/queries";
 
 const PetForm = () => {
   const [thoughtText, setText] = useState("");
@@ -20,11 +20,11 @@ const PetForm = () => {
         console.error(e);
       }
 
-      // update me object's cache, appending new thought to the end of the array
-      const { me } = cache.readQuery({ query: QUERY_ME });
+      // update profile object's cache, appending new thought to the end of the array
+      const { profile } = cache.readQuery({ query: QUERY_PROFILE });
       cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, pets: [...me.pets, addPet] } },
+        query: QUERY_PROFILE,
+        data: { profile: { ...profile, pets: [...profile.pets, addPet] } },
       });
     },
   });

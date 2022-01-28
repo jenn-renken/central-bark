@@ -39,18 +39,21 @@ export const ADD_USER = gql`
 // `;
 
 export const ADD_PET= gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
-      _id
-      thoughtText
-      createdAt
-      username
-      reactionCount
-      reactions {
+mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: String!, $name: String!, $image: String!){
+  addPet(petPersonality: $petPersonality, petPreference: $petPreference, petBreed: $petBreed, name: $name, image: $image) {
+ 
+      pets {
         _id
+        petPersonality
+        petPreference
+        petBreed
+        name
+        image
+        createdAt
+
       }
-    }
   }
+}
 `;
 
 // export const ADD_REACTION = gql`
