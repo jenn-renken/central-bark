@@ -5,10 +5,10 @@ const petSchema = new Schema({
   //   type: String,
   //   required: true,
   // },
-  userId: {
-    type: String,
-    required: true
-  },
+  // userId: {
+  //   type: String,
+  //   required: true
+  // },
   petPersonality: {
     type: String,
     required: true,

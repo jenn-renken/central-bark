@@ -75,15 +75,17 @@ const resolvers = {
     },
     addPet: async (parent, args, context) => {
       if (context.user._id) {
+        
         // make pet MODEL instead of just schema
         // add userId field to pet model
         // create new pet with context.user._id as the userId field
         
         const pet = args;
         console.log(pet)
+        const newPet = await Pet.create ( pet )
         const updated = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { savedPets: pet} },
+          { $push: { pets: newPet._id} },
           { new: true }
         );
         console.log(updated)
@@ -97,7 +99,7 @@ const resolvers = {
         if(context.user) {
         const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { savedPets: { _id: args._id } } },
+            { $pull: { pets: args._id  } },
             { new: true }
         );
 
