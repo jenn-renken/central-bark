@@ -27,7 +27,6 @@ const PetForm = () => {
         console.error(e);
       }
 
-      // update profile object's cache, appending new thought to the end of the array
       const { profile } = cache.readQuery({ query: QUERY_PROFILE });
       cache.writeQuery({
         query: QUERY_PROFILE,
