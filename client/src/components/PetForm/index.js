@@ -3,8 +3,15 @@ import { useMutation } from "@apollo/client";
 import { ADD_PET } from "../../utils/mutations";
 import { QUERY_PETS, QUERY_PROFILE } from "../../utils/queries";
 
+const emptyPetForm = 
+  {
+    name: "",
+    petBreed: "",
+    petPreference: "",
+    petPersonality: ""
+  }
 const PetForm = () => {
-  const [thoughtText, setText] = useState("");
+  const [petForm, setPetForm] = useState({...emptyPetForm});
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addPet, { error }] = useMutation(ADD_PET, {
@@ -30,22 +37,18 @@ const PetForm = () => {
   });
 
   const handleChange = (event) => {
-    if (event.target.value.length <= 280) {
-      setText(event.target.value);
-      setCharacterCount(event.target.value.length);
-    }
+   setPetForm({...petForm, [event.target.name]: event.target.value});
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      // add thought to database
       await addPet({
-        variables: { thoughtText },
+        variables: { ...petForm },
       });
 
-      setText("");
+      setPetForm({...emptyPetForm});
       setCharacterCount(0);
     } catch (e) {
       console.error(e);
@@ -53,41 +56,41 @@ const PetForm = () => {
   };
 
   return (
-    <div className= "box">
+    <form className= "box" onSubmit={handleFormSubmit}>
       <h1>Enter your pet's info:</h1>
       <div class="field">
         <label class="label">Name</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Name"></input>
+          <input class="input" type="text" name="name" placeholder="Name" value={petForm.name} onChange={handleChange}></input>
         </div>
       </div>
       <div class="field">
         <label class="label">Breed</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Breed"></input>
+          <input class="input" type="text" name="petBreed" placeholder="Breed" value={petForm.petBreed} onChange={handleChange}></input>
         </div>
       </div>
       <div class="field">
         <label class="label">Personality</label>
         <div class="control">
-          <textarea class="textarea" placeholder="Personality"></textarea>
+          <textarea class="textarea" placeholder="Personality" name="petPersonality" value={petForm.petPersonality} onChange={handleChange}></textarea>
         </div>
       </div>
       <div class="field">
-        <label class="label">Likes/Dislikes</label>
+        <label class="label">Pet Preferences</label>
         <div class="control">
-          <textarea class="textarea" placeholder="Likes/Dislikes"></textarea>
+          <textarea class="textarea" placeholder="Pet Preferences" name="petPreference" value={petForm.petPreference} onChange={handleChange}></textarea>
         </div>
       </div>
       <div class="field is-grouped">
         <div class="control">
-          <button class="button is-link">Submit</button>
+          <button class="button is-link" type="submit">Submit</button>
         </div>
         <div class="control">
           <button class="button is-link is-light">Cancel</button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

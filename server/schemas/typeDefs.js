@@ -45,7 +45,7 @@ const typeDefs = gql`
         petPreference: String!,
         petBreed: String!,
         name: String!,
-        image: String!): User
+        image: String): User
   removePet(_id: ID!): User
   }
   `;

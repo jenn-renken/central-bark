@@ -39,7 +39,7 @@ export const ADD_USER = gql`
 // `;
 
 export const ADD_PET= gql`
-mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: String!, $name: String!, $image: String!){
+mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: String!, $name: String!, $image: String){
   addPet(petPersonality: $petPersonality, petPreference: $petPreference, petBreed: $petBreed, name: $name, image: $image) {
  
       pets {
