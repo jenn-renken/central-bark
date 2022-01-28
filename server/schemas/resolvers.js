@@ -28,21 +28,28 @@ const resolvers = {
         // .populate('friends')
         .populate('pets');
     },
-    pets: async (parent, args, context) => {
-
-      if (context.user) {
-        const _user = await User.findById(context.user.id);
-        console.log(_user.savedPets)
-        return _user.savedPets;
-      }
-
-      throw new AuthenticationError('You need to be logged in!');
+    pets: async (parent, {_id}) => {
+      const params = _id ? { _id } : {};
+      return Pet.find(params);
+      
     },
-
     pet: async (parent, { _id }) => {
       return Pet.findOne({ _id });
-    }
+    },
   },
+    //   if (context.user) {
+    //     const _user = await User.findById(context.user);
+    //     console.log(_user.savedPets)
+    //     return _user.savedPets;
+    //   }
+
+    //    throw new AuthenticationError('You need to be logged in!');
+    // },
+
+  //   pet: async (parent, { _id }) => {
+  //     return Pet.findOne({ _id });
+  //   }
+  // },
 
   Mutation: {
     addUser: async (parent, args) => {
@@ -69,20 +76,24 @@ const resolvers = {
     },
     addPet: async (parent, args, context) => {
       if (context.user._id) {
+        
         // make pet MODEL instead of just schema
         // add userId field to pet model
         // create new pet with context.user._id as the userId field
         
         const pet = args;
+        pet.userId = context.user._id
         console.log(pet)
-        const updated = await User.findByIdAndUpdate(
+        const newPet = await Pet.create ( pet )
+        const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { savedPets: pet} },
+          { $push: { pets: newPet._id} },
           { new: true }
         );
-        console.log(updated)
+        console.log(updatedUser)
+        updatedUser.pets = await Pet.find({"_id":  { $in: updatedUser.pets }})
 
-        return updated;
+        return updatedUser;
       }
 
       throw new AuthenticationError('You need to be logged in!');
@@ -91,7 +102,7 @@ const resolvers = {
         if(context.user) {
         const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { savedPets: { _id: args._id } } },
+            { $pull: { pets: args._id  } },
             { new: true }
         );
 
