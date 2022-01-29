@@ -25,7 +25,7 @@ const Home = () => {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <PetGallery pets={pets} title="Make some new friends!" />
+          <PetGallery pets={pets} />
         )}
       </div>
       {/* {loggedIn && userData ? (
