@@ -21,13 +21,17 @@ const petSchema = new Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
-  },
+  // image: {
+  //   type: String,
+  // },
   name: {
     type: String,
     required: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
   //add in when ready for comment!!!
   //don't forget to create commentSchema
   //if time permits add "picture like" feature as well (virtual like count)

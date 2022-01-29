@@ -8,11 +8,11 @@ const PetGallery = ({ pets, title }) => {
   }
 
   return (
-    <div>
+    <div className="columns is-3">
       <h3>{title}</h3>
       {pets &&
         pets.map((pet) => (
-          <div key={pet._id} className="columns is-2">
+          <div key={pet._id}>
             <div className="card ">
               <div className="card-image">
                 <figure className="image is-5by4">
@@ -37,6 +37,7 @@ const PetGallery = ({ pets, title }) => {
                     <p className="subtitle is-6">{pet.petBreed}</p>
                   </div>
                 </div>
+                
                 <div className="card-content">
                   {/* <p>
                     <Link
@@ -65,6 +66,7 @@ const PetGallery = ({ pets, title }) => {
                   </p> */}
                   </div>
                 </div>
+
               </div>
             </div>
           </div>

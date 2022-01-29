@@ -31,8 +31,8 @@ const PetDetail = props => {
         </div>
       </div>
 
-      {pet.reactionCount > 0 && <ReactionList reactions={pet.reactions} />}
-      {Auth.loggedIn() && <ReactionForm petId={pet._id} />}
+      {/* {pet.reactionCount > 0 && <ReactionList reactions={pet.reactions} />}
+      {Auth.loggedIn() && <ReactionForm petId={pet._id} />} */}
     </div>
   );
 };

@@ -8,7 +8,8 @@ const emptyPetForm =
     name: "",
     petBreed: "",
     petPreference: "",
-    petPersonality: ""
+    petPersonality: "",
+    image: ""
   }
 const PetForm = () => {
   const [petForm, setPetForm] = useState({...emptyPetForm});
@@ -55,38 +56,44 @@ const PetForm = () => {
   };
 
   return (
-    <form className= "box" onSubmit={handleFormSubmit}>
+    <form className= "box" encType="multipart/form-data" onSubmit={handleFormSubmit}>
       <h1>Enter your pet's info:</h1>
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input class="input" type="text" name="name" placeholder="Name" value={petForm.name} onChange={handleChange}></input>
+      <div className="field">
+        <label className="label">Name</label>
+        <div className="control">
+          <input className="input" type="text" name="name" placeholder="Name" value={petForm.name} onChange={handleChange}></input>
         </div>
       </div>
-      <div class="field">
-        <label class="label">Breed</label>
-        <div class="control">
-          <input class="input" type="text" name="petBreed" placeholder="Breed" value={petForm.petBreed} onChange={handleChange}></input>
+      <div className="field">
+        <label className="label">Breed</label>
+        <div className="control">
+          <input className="input" type="text" name="petBreed" placeholder="Breed" value={petForm.petBreed} onChange={handleChange}></input>
         </div>
       </div>
-      <div class="field">
-        <label class="label">Personality</label>
-        <div class="control">
-          <textarea class="textarea" placeholder="Personality" name="petPersonality" value={petForm.petPersonality} onChange={handleChange}></textarea>
+      <div className="field">
+        <label className="label">Personality</label>
+        <div className="control">
+          <textarea className="textarea" placeholder="Personality" name="petPersonality" value={petForm.petPersonality} onChange={handleChange}></textarea>
         </div>
       </div>
-      <div class="field">
-        <label class="label">Pet Preferences</label>
-        <div class="control">
-          <textarea class="textarea" placeholder="Pet Preferences" name="petPreference" value={petForm.petPreference} onChange={handleChange}></textarea>
+      <div className="field">
+        <label className="label">Pet Preferences</label>
+        <div className="control">
+          <textarea className="textarea" placeholder="Pet Preferences" name="petPreference" value={petForm.petPreference} onChange={handleChange}></textarea>
         </div>
       </div>
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-link" type="submit">Submit</button>
+      <div className="field">
+        <label className="label">Pet Photo</label>
+        <div className="control">
+          <input type="file" name="image" value={petForm.image} onChange={handleChange} />
         </div>
-        <div class="control">
-          <button class="button is-link is-light">Cancel</button>
+      </div>
+      <div className="field is-grouped">
+        <div className="control">
+          <button className="button is-link" type="submit">Submit</button>
+        </div>
+        <div className="control">
+          <button className="button is-link is-light">Cancel</button>
         </div>
       </div>
     </form>

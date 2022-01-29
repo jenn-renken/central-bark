@@ -17,12 +17,12 @@ const typeDefs = gql`
     name: String
     image: String
     userId: ID
+    username: String
   }
   input savedPets {
     petPersonality: String
     petPreference: String
     petBreed: String
-    createdAt: String
     name: String
     image: String
 }
