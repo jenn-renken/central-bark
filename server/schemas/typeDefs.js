@@ -1,6 +1,14 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+
+type UploadedFileResponse {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String!
+}
+
   type User {
     _id: ID
     username: String
@@ -36,6 +44,7 @@ const typeDefs = gql`
     user(username: String!): User
     pets(userId: ID): [Pet]
     pet(_id: ID!): Pet
+    uploads: [UploadedFileResponse]
   }
   type Mutation {
     login(email: String!, password: String!): Auth
@@ -46,7 +55,8 @@ const typeDefs = gql`
         petBreed: String!,
         name: String!,
         image: String): User
-  removePet(_id: ID!): User
+  removePet(_id: ID!): User,
+  singleUpload(file: Upload!): UploadedFileResponse!
   }
   `;
 
