@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const commentSchema = require('./Comment');
 
 const petSchema = new Schema({
   // username: {
@@ -31,17 +32,21 @@ const petSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
   //add in when ready for comment!!!
   //don't forget to create commentSchema
   //if time permits add "picture like" feature as well (virtual like count)
-  //   comments: [commentSchema]
-  // },
-  // {
-  //   toJSON: {
-  //     getters: true
-  //   }
-  // }
+    comments: [commentSchema]
+  },
+  {
+    toJSON: {
+      getters: true
+    }
+  }
+);
+
+petSchema.virtual('commentCount').get(function() {
+  return this.comments.length;
 });
 
 const Pet = model('Pet', petSchema);
