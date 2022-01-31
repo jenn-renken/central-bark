@@ -18,7 +18,17 @@ const typeDefs = gql`
     image: String
     userId: ID
     username: String
+    commentCount: Int
+    comments: [Comment]
   }
+
+  type Comment {
+    _id: ID
+    commentBody: String
+    createdAt: String
+    username: String
+  }
+
   input savedPets {
     petPersonality: String
     petPreference: String
@@ -47,6 +57,7 @@ const typeDefs = gql`
         name: String!,
         image: String): User
   removePet(_id: ID!): User
+  addComment(userId: ID!, commentBody: String!): User
   }
   `;
 
@@ -56,10 +67,5 @@ const typeDefs = gql`
   //  friendCount: Int
   //  friends: [User]
 
-  //add to type Pet
-  //commentCount: Int
-  //comments: [Comment]
-
   //add to mutation
-  //addReaction(thoughtId: ID!, reactionBody: String!): Thought
   //addFriend(friendId: ID!): User
