@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_PET } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const PetDetail = props => {
-  const { id: petId } = useParams();
+  const { petId } = useParams();
 
   const { loading, data } = useQuery(QUERY_PET, {
     variables: { id: petId }

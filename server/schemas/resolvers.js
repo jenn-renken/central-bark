@@ -116,7 +116,7 @@ const resolvers = {
       if (context.user) {
         const updatedPet = await Pet.findOneAndUpdate(
           { _id: userId },
-          { $push: { comments: { commentBody, userId: context.user.username } } },
+          { $push: { comments: { commentBody, username: context.user.username } } },
           { new: true, runValidators: true }
         );
 
