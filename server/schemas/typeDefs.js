@@ -57,7 +57,7 @@ const typeDefs = gql`
         name: String!,
         image: String): User
   removePet(_id: ID!): User
-  addComment(commentId: ID!, commentBody: String!): User
+  addComment(userId: ID!, commentBody: String!): User
   }
   `;
 
