@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
- const petSchema = require('./Pet');
+//  const petSchema = require('./Pet');
 
 const userSchema = new Schema(
   {
@@ -22,13 +22,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // pets: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Pet'
-    //   }
-    // ]
-    savedPets: [petSchema],
+    pets: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Pet'
+      }
+    ]
+  //   savedPets: [petSchema],
   },
   {
     toJSON: {
