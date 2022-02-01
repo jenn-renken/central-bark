@@ -104,7 +104,7 @@ const [image, setImage] = useState(null);
       <div className="field">
         <label className="label">Pet Photo</label>
         <div className="control">
-          <input type="file" name="image" value={petForm.image} onChange={handleImageChange} />
+          <input type="file" name="image" onChange={handleImageChange} />
         </div>
       </div>
       <div className="field is-grouped">
