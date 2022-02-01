@@ -1,6 +1,10 @@
 const path = require('path');
 const express = require('express');
 const {ApolloServer} = require('apollo-server-express');
+const {
+  GraphQLUpload,
+  graphqlUploadExpress, 
+} = require('graphql-upload');
 
 const {typeDefs, resolvers} = require('./schemas');
 const {authMiddleware} = require('./utils/auth');
@@ -11,9 +15,9 @@ const app = express();
 const server = new ApolloServer({ 
   typeDefs, 
   resolvers, 
-  context: authMiddleware
+  context: authMiddleware,
+  uploads: false
 });
-server.applyMiddleware({ app });
 
 // const startServer = async () => {
 //   const server = new ApolloServer({
@@ -30,6 +34,9 @@ server.applyMiddleware({ app });
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(graphqlUploadExpress());
+
+server.applyMiddleware({ app });
 
 // Serve up static assets
 if (process.env.NODE_ENV === 'production') {

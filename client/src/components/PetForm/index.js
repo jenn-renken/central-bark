@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_PET } from "../../utils/mutations";
+import { ADD_PET, SINGLE_UPLOAD } from "../../utils/mutations";
 import { QUERY_PETS, QUERY_PROFILE } from "../../utils/queries";
 
 const emptyPetForm = 
@@ -9,11 +9,12 @@ const emptyPetForm =
     petBreed: "",
     petPreference: "",
     petPersonality: "",
-    image: ""
   }
 const PetForm = () => {
   const [petForm, setPetForm] = useState({...emptyPetForm});
   const [characterCount, setCharacterCount] = useState(0);
+
+const [image, setImage] = useState(null);
 
   const [addPet, { error }] = useMutation(ADD_PET, {
     update(cache, { data: { addPet } }) {
@@ -36,17 +37,35 @@ const PetForm = () => {
     },
   });
 
+  const [singleUpload] = useMutation(SINGLE_UPLOAD);
+
   const handleChange = (event) => {
    setPetForm({...petForm, [event.target.name]: event.target.value});
   };
 
+  const handleImageChange = (event) => {
+    console.log("file[0]", event.target.files[0]);
+    setImage(event.target.files[0])
+  };
+
   const handleFormSubmit = async (event) => {
-    // event.preventDefault();
+    event.preventDefault();
 
     try {
-      await addPet({
+      console.log("image", image);
+      const fileResult = await singleUpload({
+        variables: {file: {...image}}
+      });
+
+      console.log("fileResult", fileResult);
+      const result = await addPet({
         variables: { ...petForm },
       });
+      const pets = result.addPet;
+      const newPetId = pets[pets.length - 1]._id;
+    
+      console.log("result", result);
+      console.log("image", image);
 
       setPetForm({...emptyPetForm});
       setCharacterCount(0);
@@ -85,7 +104,7 @@ const PetForm = () => {
       <div className="field">
         <label className="label">Pet Photo</label>
         <div className="control">
-          <input type="file" name="image" value={petForm.image} onChange={handleChange} />
+          <input type="file" name="image" value={petForm.image} onChange={handleImageChange} />
         </div>
       </div>
       <div className="field is-grouped">

@@ -1,8 +1,12 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Pet } = require('../models');
 const { signToken } = require('../utils/auth');
+const {GraphQLUpload} = require('graphql-upload');
+const { finished } = require('stream/promises');
 
 const resolvers = {
+  Upload: GraphQLUpload,
+
   Query: {
     profile: async (parent, args, context) => {
       if (context.user) {
@@ -77,12 +81,7 @@ const resolvers = {
     addPet: async (parent, args, context) => {
       if (context.user._id) {
         
-        // make pet MODEL instead of just schema
-        // add userId field to pet model
-        // create new pet with context.user._id as the userId field
-        
         const pet = args;
-        delete pet.petPhoto
         pet.userId = context.user._id
         console.log(pet)
         const newPet = await Pet.create ( pet )
@@ -111,7 +110,23 @@ const resolvers = {
         }
 
         throw new AuthenticationError('You need to be logged in!');
-    }
+    },
+    singleUpload: async (parent, { file }) => {
+      const { createReadStream, filename, mimetype, encoding } = await file;
+
+      // Invoking the `createReadStream` will return a Readable Stream.
+      // See https://nodejs.org/api/stream.html#stream_readable_streams
+      const stream = createReadStream();
+
+      // This is purely for demonstration purposes and will overwrite the
+      // local-file-output.txt in the current working directory on EACH upload.
+      const out = require('fs').createWriteStream('local-file-output.txt');
+      stream.pipe(out);
+      await finished(out);
+
+      return { filename, mimetype, encoding };
+    },
+
     // addComment: async (parent, { petId, commentBody }, context) => {
     //   if (context.user) {
     //     const updatedPet = await Pet.findOneAndUpdate(
