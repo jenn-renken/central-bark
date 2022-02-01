@@ -17,7 +17,7 @@ import NoMatch from "./pages/NoMatch";
 
 //const httpLink = createHttpLink({uri: '/graphql',});
  
-const link = createUploadLink({ uri: "/graphql" });
+const uploadLink = createUploadLink({ uri: "/graphql" });
 
 
 
@@ -32,8 +32,8 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  // link: authLink.concat(httpLink),
-  link,
+  link: authLink.concat(uploadLink),
+  
   cache: new InMemoryCache(),
 });
 

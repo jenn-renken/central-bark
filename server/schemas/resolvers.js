@@ -4,6 +4,10 @@ const { signToken } = require("../utils/auth");
 const { finished } = require("stream");
 //file upload
 const { GraphQLUpload } = require("graphql-upload");
+const { createWriteStream } = require("fs");
+const path = require ("path");
+
+const files = [];
 
 const resolvers = {
   Query: {

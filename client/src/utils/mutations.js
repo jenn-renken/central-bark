@@ -55,6 +55,7 @@ mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: St
   }
 }
 `;
+//uploadFileMutation takes one variable $file which is type Upload
 export const uploadFileMutation = gql`
   mutation UploadFile($file: Upload!) {
     uploadFile(file: $file)

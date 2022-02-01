@@ -113,9 +113,9 @@ const PetForm = () => {
         </div>
       </div>
       <div className="field">
-        <ErrorBoundary>
+        {/* <ErrorBoundary> */}
           <Upload />
-        </ErrorBoundary>
+        {/* </ErrorBoundary> */}
 
         {/* <label className="label">Pet Photo</label>
         <div className="control">

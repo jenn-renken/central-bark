@@ -57,7 +57,6 @@ type UploadedFileResponse {
         name: String!,
         image: String): User
   removePet(_id: ID!): User,
-  singleUpload(file: Upload!): UploadedFileResponse!
   uploadFile(file: Upload!): Boolean
   }
   `;
