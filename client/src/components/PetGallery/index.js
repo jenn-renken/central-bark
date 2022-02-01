@@ -22,8 +22,8 @@ const PetGallery = ({ pets, title }) => {
                 <div className="card-image">
                   <figure className="image is-5by4">
                     <img
-                      src={require("../../assets/images/logo.png")}
-                      alt="Placeholder image"
+                      src={require("../../assets/images/"+(pet.filename || "logo.png"))}
+                      alt="image of a pet"
                     ></img>
                   </figure>
                 </div>

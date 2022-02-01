@@ -120,7 +120,7 @@ const resolvers = {
 
       // This is purely for demonstration purposes and will overwrite the
       // local-file-output.txt in the current working directory on EACH upload.
-      const out = require('fs').createWriteStream('local-file-output.txt');
+      const out = require('fs').createWriteStream('../client/src/assets/images/' + filename);
       stream.pipe(out);
       await finished(out);
 

@@ -44,7 +44,6 @@ const [image, setImage] = useState(null);
   };
 
   const handleImageChange = (event) => {
-    console.log("file[0]", event.target.files[0]);
     setImage(event.target.files[0])
   };
 
@@ -52,22 +51,21 @@ const [image, setImage] = useState(null);
     event.preventDefault();
 
     try {
-      console.log("image", image);
-      const fileResult = await singleUpload({
-        variables: {file: image}
-      });
+      let filename = null;
+      if (image) {
+        const fileResult = await singleUpload({
+          variables: {file: image}
+        })
+        filename = fileResult.filename;
+      }
 
-      console.log("fileResult", fileResult);
       const result = await addPet({
-        variables: { ...petForm },
+        variables: { ...petForm, filename },
       });
       const pets = result.addPet;
-      const newPetId = pets[pets.length - 1]._id;
-    
-      console.log("result", result);
-      console.log("image", image);
 
       setPetForm({...emptyPetForm});
+      setImage(null);
       setCharacterCount(0);
     } catch (e) {
       console.error(e);

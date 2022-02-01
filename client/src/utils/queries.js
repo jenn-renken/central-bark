@@ -10,6 +10,7 @@ export const QUERY_PETS = gql`
         name
         createdAt
         userId
+        filename
   }
         
     }
@@ -25,6 +26,7 @@ export const QUERY_PET = gql`
             name
             createdAt
             username
+            filename
         }
     }
 `;
@@ -42,6 +44,7 @@ export const QUERY_USER = gql`
         petBreed
         name
         createdAt
+        filename
       }
     }
   }
@@ -61,6 +64,7 @@ export const QUERY_PROFILE = gql`
         name
         createdAt
         username
+        filename
       }
     }
   }

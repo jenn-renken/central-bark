@@ -39,8 +39,8 @@ export const ADD_USER = gql`
 // `;
 
 export const ADD_PET= gql`
-mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: String!, $name: String!, $image: String){
-  addPet(petPersonality: $petPersonality, petPreference: $petPreference, petBreed: $petBreed, name: $name, image: $image) {
+mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: String!, $name: String!, $filename: String){
+  addPet(petPersonality: $petPersonality, petPreference: $petPreference, petBreed: $petBreed, name: $name, filename: $filename) {
  
       pets {
         _id
@@ -48,9 +48,8 @@ mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: St
         petPreference
         petBreed
         name
-        image
+        filename
         createdAt
-
       }
   }
 }

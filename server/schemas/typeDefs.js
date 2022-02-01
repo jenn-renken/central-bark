@@ -17,16 +17,16 @@ const typeDefs = gql`
     petBreed: String
     createdAt: String
     name: String
-    image: String
     userId: ID
     username: String
+    filename: String
   }
   input savedPets {
     petPersonality: String
     petPreference: String
     petBreed: String
     name: String
-    image: String
+    filename: String
 }
   type Auth {
     token: ID!
@@ -52,7 +52,7 @@ const typeDefs = gql`
         petPreference: String!,
         petBreed: String!,
         name: String!,
-        image: String): User
+        filename: String): User
   removePet(_id: ID!): User
   singleUpload(file: Upload!): File!
   }

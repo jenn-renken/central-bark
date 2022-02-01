@@ -21,9 +21,9 @@ const petSchema = new Schema({
     type: String,
     required: true,
   },
-  // image: {
-  //   type: String,
-  // },
+  filename: {
+    type: String,
+  },
   name: {
     type: String,
     required: true,
