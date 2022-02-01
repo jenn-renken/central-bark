@@ -14,9 +14,8 @@ import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import NoMatch from "./pages/NoMatch";
-const uploadLink = createUploadLink({
-  uri: '/graphql',
-});
+
+const uploadLink = createUploadLink({ uri: 'http//localhost:3001/graphql' });
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
@@ -30,7 +29,7 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(uploadLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache()
 });
 
 function App() {

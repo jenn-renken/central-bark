@@ -55,6 +55,8 @@ mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: St
   }
 }
 `;
+
+// upload error happening here
 export const SINGLE_UPLOAD= gql`
 mutation singleUpload($file: Upload!) {
   singleUpload(file: $file) {
