@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_PET } from '../utils/queries';
 import Auth from '../utils/auth';
+import CommentList from '../components/CommentList';
+import CommentForm from '../components/CommentForm';
 
 const PetDetail = props => {
   const { petId } = useParams();
@@ -24,15 +26,15 @@ const PetDetail = props => {
           <span style={{ fontWeight: 700 }} className="text-light">
             {pet.username}
           </span>{' '}
-          pet on {pet.createdAt}
+          comment on {pet.createdAt}
         </p>
         <div className="card-body">
           <p>{pet.petText}</p>
         </div>
       </div>
 
-      {/* {pet.reactionCount > 0 && <ReactionList reactions={pet.reactions} />}
-      {Auth.loggedIn() && <ReactionForm petId={pet._id} />} */}
+      {pet.commentCount > 0 && <CommentList comments={pet.comments} />}
+      {Auth.loggedIn() && <CommentForm petId={pet._id} />}
     </div>
   );
 };
