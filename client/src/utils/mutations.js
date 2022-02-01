@@ -50,6 +50,10 @@ mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: St
         name
         image
         createdAt
+        commentCount
+      comments {
+        _id
+      }
 
       }
   }
