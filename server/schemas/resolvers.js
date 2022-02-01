@@ -1,53 +1,54 @@
-const { AuthenticationError } = require('apollo-server-express');
-const { User, Pet } = require('../models');
-const { signToken } = require('../utils/auth');
+const { AuthenticationError } = require("apollo-server-express");
+const { User, Pet } = require("../models");
+const { signToken } = require("../utils/auth");
 const { finished } = require("stream");
 //file upload
 const { GraphQLUpload } = require("graphql-upload");
 
 const resolvers = {
   Query: {
+    files: () => files,
+
     profile: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
-          .select('-__v -password')
-          .populate('pets')
+          .select("-__v -password")
+          .populate("pets");
         //   .populate('friends');
 
         return userData;
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
     users: async () => {
-      return User.find()
-        .select('-__v -password')
-        .populate('pets')
-        // .populate('friends');
+      return User.find().select("-__v -password").populate("pets");
+      // .populate('friends');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username })
-        .select('-__v -password')
-        // .populate('friends')
-        .populate('pets');
+      return (
+        User.findOne({ username })
+          .select("-__v -password")
+          // .populate('friends')
+          .populate("pets")
+      );
     },
-    pets: async (parent, {userId}) => {
+    pets: async (parent, { userId }) => {
       const params = userId ? { userId } : {};
       return Pet.find(params);
-      
     },
     pet: async (parent, { _id }) => {
       return Pet.findOne({ _id });
     },
   },
-    //   if (context.user) {
-    //     const _user = await User.findById(context.user);
-    //     console.log(_user.savedPets)
-    //     return _user.savedPets;
-    //   }
+  //   if (context.user) {
+  //     const _user = await User.findById(context.user);
+  //     console.log(_user.savedPets)
+  //     return _user.savedPets;
+  //   }
 
-    //    throw new AuthenticationError('You need to be logged in!');
-    // },
+  //    throw new AuthenticationError('You need to be logged in!');
+  // },
 
   //   pet: async (parent, { _id }) => {
   //     return Pet.findOne({ _id });
@@ -58,23 +59,44 @@ const resolvers = {
   Upload: GraphQLUpload,
 
   Mutation: {
+    //file upload new try
+    uploadFile: async (_, { file }) => {
+      const { createReadStream, filename } = await file;
 
-        //file upload
-        singleUpload: async (parent, { file }) => {
-          const { createReadStream, filename, mimetype, encoding } = await file;
-    
-          // Invoking the `createReadStream` will return a Readable Stream.
-          // See https://nodejs.org/api/stream.html#stream_readable_streams
-          const stream = createReadStream();
-    
-          // This is purely for demonstration purposes and will overwrite the
-          // local-file-output.txt in the current working directory on EACH upload.
-          const out = require('fs').createWriteStream('local-file-output.txt');
-          stream.pipe(out);
-          await finished(out);
-    
-          return { filename, mimetype, encoding };
-        },//end file upload
+      //can this go here?
+      //existsSync(path.join(__dirname, "../images")) || mkdirSync(path.join(__dirname, "../images"));
+
+      await new Promise((res) =>
+        createReadStream()
+          .pipe(
+            createWriteStream(
+              path.join(__dirname, "../../client/src/assets/images", filename)
+            )
+          )
+          .on("close", res)
+      );
+
+      files.push(filename);
+
+      return true;
+    },
+
+    //file upload
+    // singleUpload: async (parent, { file }) => {
+    //   const { createReadStream, filename, mimetype, encoding } = await file;
+
+    //   // Invoking the `createReadStream` will return a Readable Stream.
+    //   // See https://nodejs.org/api/stream.html#stream_readable_streams
+    //   const stream = createReadStream();
+
+    //   // This is purely for demonstration purposes and will overwrite the
+    //   // local-file-output.txt in the current working directory on EACH upload.
+    //   const out = require("fs").createWriteStream("local-file-output.txt");
+    //   stream.pipe(out);
+    //   await finished(out);
+
+    //   return { filename, mimetype, encoding };
+    // }, //end file upload
 
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -86,13 +108,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const token = signToken(user);
@@ -100,43 +122,41 @@ const resolvers = {
     },
     addPet: async (parent, args, context) => {
       if (context.user._id) {
-        
         // make pet MODEL instead of just schema
         // add userId field to pet model
         // create new pet with context.user._id as the userId field
-        
+
         const pet = args;
-        delete pet.petPhoto
-        pet.userId = context.user._id
-        console.log(pet)
-        const newPet = await Pet.create ( pet )
+        delete pet.petPhoto;
+        pet.userId = context.user._id;
+        console.log(pet);
+        const newPet = await Pet.create(pet);
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { pets: newPet._id} },
+          { $push: { pets: newPet._id } },
           { new: true }
         );
-        console.log(updatedUser)
-        updatedUser.pets = await Pet.find({"_id":  { $in: updatedUser.pets }})
+        console.log(updatedUser);
+        updatedUser.pets = await Pet.find({ _id: { $in: updatedUser.pets } });
 
         return updatedUser;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     removePet: async (parent, args, context) => {
-        if(context.user) {
+      if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
-            { _id: context.user._id },
-            { $pull: { pets: args._id  } },
-            { new: true }
+          { _id: context.user._id },
+          { $pull: { pets: args._id } },
+          { new: true }
         );
 
         return updatedUser;
-        }
+      }
 
-        throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
-
 
     // addComment: async (parent, { petId, commentBody }, context) => {
     //   if (context.user) {
@@ -151,20 +171,20 @@ const resolvers = {
 
     //   throw new AuthenticationError('You need to be logged in!');
     // },
-//     addFriend: async (parent, { friendId }, context) => {
-//       if (context.user) {
-//         const updatedUser = await User.findOneAndUpdate(
-//           { _id: context.user._id },
-//           { $addToSet: { friends: friendId } },
-//           { new: true }
-//         ).populate('friends');
+    //     addFriend: async (parent, { friendId }, context) => {
+    //       if (context.user) {
+    //         const updatedUser = await User.findOneAndUpdate(
+    //           { _id: context.user._id },
+    //           { $addToSet: { friends: friendId } },
+    //           { new: true }
+    //         ).populate('friends');
 
-//         return updatedUser;
-//       }
+    //         return updatedUser;
+    //       }
 
-//       throw new AuthenticationError('You need to be logged in!');
-//     }
-  }
+    //       throw new AuthenticationError('You need to be logged in!');
+    //     }
+  },
 };
 
 module.exports = resolvers;

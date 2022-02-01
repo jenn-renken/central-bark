@@ -1,4 +1,5 @@
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { createUploadLink } from "apollo-upload-client"
 import { setContent, setContext } from '@apollo/client/link/context';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -13,9 +14,12 @@ import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import NoMatch from "./pages/NoMatch";
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
+
+//const httpLink = createHttpLink({uri: '/graphql',});
+ 
+const link = createUploadLink({ uri: "/graphql" });
+
+
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
@@ -28,7 +32,8 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  // link: authLink.concat(httpLink),
+  link,
   cache: new InMemoryCache(),
 });
 

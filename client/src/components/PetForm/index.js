@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PET } from "../../utils/mutations";
 import { QUERY_PETS, QUERY_PROFILE } from "../../utils/queries";
-
-const emptyPetForm = 
-  {
-    name: "",
-    petBreed: "",
-    petPreference: "",
-    petPersonality: "",
-    image: ""
-  }
+import { Upload } from "../../pages/Upload";
+import ErrorBoundary from "../../pages/ErrorBoundary";
+const emptyPetForm = {
+  name: "",
+  petBreed: "",
+  petPreference: "",
+  petPersonality: "",
+  image: "",
+};
 const PetForm = () => {
-  const [petForm, setPetForm] = useState({...emptyPetForm});
+  const [petForm, setPetForm] = useState({ ...emptyPetForm });
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addPet, { error }] = useMutation(ADD_PET, {
@@ -37,7 +37,7 @@ const PetForm = () => {
   });
 
   const handleChange = (event) => {
-   setPetForm({...petForm, [event.target.name]: event.target.value});
+    setPetForm({ ...petForm, [event.target.name]: event.target.value });
   };
 
   const handleFormSubmit = async (event) => {
@@ -48,7 +48,7 @@ const PetForm = () => {
         variables: { ...petForm },
       });
 
-      setPetForm({...emptyPetForm});
+      setPetForm({ ...emptyPetForm });
       setCharacterCount(0);
     } catch (e) {
       console.error(e);
@@ -56,41 +56,77 @@ const PetForm = () => {
   };
 
   return (
-    <form className= "box" encType="multipart/form-data" onSubmit={handleFormSubmit}>
+    <form
+      className="box"
+      encType="multipart/form-data"
+      onSubmit={handleFormSubmit}
+    >
       <h1>Enter your pet's info:</h1>
       <div className="field">
         <label className="label">Name</label>
         <div className="control">
-          <input className="input" type="text" name="name" placeholder="Name" value={petForm.name} onChange={handleChange}></input>
+          <input
+            className="input"
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={petForm.name}
+            onChange={handleChange}
+          ></input>
         </div>
       </div>
       <div className="field">
         <label className="label">Breed</label>
         <div className="control">
-          <input className="input" type="text" name="petBreed" placeholder="Breed" value={petForm.petBreed} onChange={handleChange}></input>
+          <input
+            className="input"
+            type="text"
+            name="petBreed"
+            placeholder="Breed"
+            value={petForm.petBreed}
+            onChange={handleChange}
+          ></input>
         </div>
       </div>
       <div className="field">
         <label className="label">Personality</label>
         <div className="control">
-          <textarea className="textarea" placeholder="Personality" name="petPersonality" value={petForm.petPersonality} onChange={handleChange}></textarea>
+          <textarea
+            className="textarea"
+            placeholder="Personality"
+            name="petPersonality"
+            value={petForm.petPersonality}
+            onChange={handleChange}
+          ></textarea>
         </div>
       </div>
       <div className="field">
         <label className="label">Pet Preferences</label>
         <div className="control">
-          <textarea className="textarea" placeholder="Pet Preferences" name="petPreference" value={petForm.petPreference} onChange={handleChange}></textarea>
+          <textarea
+            className="textarea"
+            placeholder="Pet Preferences"
+            name="petPreference"
+            value={petForm.petPreference}
+            onChange={handleChange}
+          ></textarea>
         </div>
       </div>
       <div className="field">
-        <label className="label">Pet Photo</label>
+        <ErrorBoundary>
+          <Upload />
+        </ErrorBoundary>
+
+        {/* <label className="label">Pet Photo</label>
         <div className="control">
           <input type="file" name="image" value={petForm.image} onChange={handleChange} />
-        </div>
+        </div> */}
       </div>
       <div className="field is-grouped">
         <div className="control">
-          <button className="button is-link" type="submit">Submit</button>
+          <button className="button is-link" type="submit">
+            Submit
+          </button>
         </div>
         <div className="control">
           <button className="button is-link is-light">Cancel</button>

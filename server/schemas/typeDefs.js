@@ -45,6 +45,7 @@ type UploadedFileResponse {
     pets(userId: ID): [Pet]
     pet(_id: ID!): Pet
     uploads: [UploadedFileResponse]
+    files: [String]
   }
   type Mutation {
     login(email: String!, password: String!): Auth
@@ -57,6 +58,7 @@ type UploadedFileResponse {
         image: String): User
   removePet(_id: ID!): User,
   singleUpload(file: Upload!): UploadedFileResponse!
+  uploadFile(file: Upload!): Boolean
   }
   `;
 

@@ -55,7 +55,11 @@ mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: St
   }
 }
 `;
-
+export const uploadFileMutation = gql`
+  mutation UploadFile($file: Upload!) {
+    uploadFile(file: $file)
+  }
+`;
 // export const ADD_REACTION = gql`
 //   mutation addReaction($thoughtId: ID!, $reactionBody: String!) {
 //     addReaction(thoughtId: $thoughtId, reactionBody: $reactionBody) {
