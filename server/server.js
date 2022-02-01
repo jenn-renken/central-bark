@@ -10,34 +10,21 @@ const {authMiddleware} = require('./utils/auth');
 const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
-const app = express();
-const server = new ApolloServer({ 
-  typeDefs, 
-  resolvers, 
-  context: authMiddleware,
-  uploads: false
-});
 
-// const startServer = async () => {
-//   const server = new ApolloServer({
-//     typeDefs,
-//     resolvers,
-//     context: authMiddleware,
-//   });
-//   await server.start();
-//   server.applyMiddleware({ app });
-//   console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-// };
+const startServer = async () => {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware,
+    uploads: false
+  });
+  await server.start();
+  const app = express();
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(graphqlUploadExpress());
 
-// startServer();
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(graphqlUploadExpress());
-
-server.applyMiddleware({ app });
-
-// Serve up static assets
+  // Serve up static assets
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
@@ -52,3 +39,11 @@ db.once('open', () => {
     console.log(`API server running on port ${PORT}!`);
   });
 });
+  server.applyMiddleware({ app });
+  console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+};
+
+startServer();
+
+
+

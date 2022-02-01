@@ -54,7 +54,7 @@ const [image, setImage] = useState(null);
     try {
       console.log("image", image);
       const fileResult = await singleUpload({
-        variables: {file: {...image}}
+        variables: {file: image}
       });
 
       console.log("fileResult", fileResult);
