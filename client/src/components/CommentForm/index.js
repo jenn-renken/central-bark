@@ -34,7 +34,7 @@ const CommentForm = ({ petId }) => {
   };
 
   return (
-    <div>
+    <div className = "container">
       <p
         className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}
       >
@@ -52,7 +52,7 @@ const CommentForm = ({ petId }) => {
           onChange={handleChange}
         ></textarea>
 
-        <button className="btn col-12 col-md-3" type="submit">
+        <button className="button is-link " type="submit">
           Submit
         </button>
       </form>
