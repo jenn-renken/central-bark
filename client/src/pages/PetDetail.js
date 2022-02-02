@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_PET } from "../utils/queries";
 import Auth from "../utils/auth";
+import EditForm from '../components/EditForm';
 import CommentList from "../components/CommentList";
 import CommentForm from "../components/CommentForm";
 // import '../../assets/css/index.css';
 
 const PetDetail = (props) => {
+  const [isEditing, setIsEditing] = useState(false);
   const { petId } = useParams();
 
   const { loading, data } = useQuery(QUERY_PET, {
@@ -57,28 +59,23 @@ const PetDetail = (props) => {
           <div className="card-body">
             <p>{pet.petText}</p>
           </div>
-          <form class="edit-post-form">
-            {/* <div>
-      <input
-        name="edit-pet"
-        class="input is-link"
-        type="text"
-        value="{{post.petDetail}}"
-      />
-    </div> */}
-            <div class="is-flex is-justify-content-space-between">
-              <button class="button is-link" type="submit">
-                Edit Pet
-              </button>
-              <button
-                id="delete-post-btn"
-                class="button is-danger"
-                type="button"
-              >
-                Delete Pet
-              </button>
-            </div>
-          </form>
+          {!isEditing && Auth.loggedIn() && Auth.getProfile().data._id == pet.userId &&
+            <form class="edit-post-form">
+              <div class="is-flex is-justify-content-space-between">
+                  <button class="button is-primary" type="button" onClick={() => setIsEditing(true)}>
+                    Edit Pet 
+                  </button>
+                  <button
+                    id="delete-post-btn"
+                    class="button is-danger"
+                    type="button"
+                  >
+                    Delete Pet
+                  </button>
+              </div>
+            </form>
+          }
+          {isEditing && <EditForm pet={pet} setIsEditing={setIsEditing}></EditForm>}
         </div>
         <div className="card-content">
           {pet.commentCount > 0 && <CommentList comments={pet.comments} />}

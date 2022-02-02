@@ -28,12 +28,12 @@ export const QUERY_PET = gql`
     query pet($id: ID!) {
         pet(_id: $id) {
             _id
+            userId
             petPersonality
             petPreference
             petBreed
             name
             createdAt
-            username
             commentCount
             comments {
               _id
@@ -54,6 +54,7 @@ export const QUERY_USER = gql`
       email
       pets {
         _id
+        userId
         petPersonality
         petPreference
         petBreed
@@ -83,8 +84,9 @@ export const QUERY_PROFILE = gql`
         petPreference
         petBreed
         name
+        image
         createdAt
-        username
+        userId
         commentCount
         comments {
           _id

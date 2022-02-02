@@ -12,6 +12,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 import Home from './pages/Home';
+import EditForm from './components/EditForm';
 import NoMatch from "./pages/NoMatch";
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -46,7 +47,7 @@ function App() {
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/user/:username?" component={Profile} />
               <Route exact path="/pet/:petId?" component={PetDetail}/>
-              {/* <Route exact path="/pet/:id" component={PetDetails} /> */}
+              <Route exact path= "/pet/:petId?/edit" component={EditForm} />
               <Route component={NoMatch} />
             </Switch>
           </div>

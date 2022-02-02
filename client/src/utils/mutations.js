@@ -44,6 +44,7 @@ mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: St
  
       pets {
         _id
+        userId
         petPersonality
         petPreference
         petBreed
@@ -58,6 +59,47 @@ mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: St
       }
   }
 }
+`;
+  export const UPDATE_PET = gql`
+  mutation updatePet($_id: ID!, $petPersonality: String!, $petPreference: String!, $petBreed: String!, $name: String!, $image: String){
+    updatePet(_id:$_id, petPersonality: $petPersonality, petPreference: $petPreference, petBreed: $petBreed, name: $name, image: $image) {
+   
+      pets {
+        _id
+        userId
+        petPersonality
+        petPreference
+        petBreed
+        name
+        image
+        createdAt
+        commentCount
+        comments {
+          _id
+        }
+      }
+    }
+  }
+`;
+export const REMOVE_PET = gql`
+  mutation removePet($petId: ID!){
+    removePet(petId: $petId) {
+      pets {
+        _id
+        userId
+        petPersonality
+        petPreference
+        petBreed
+        name
+        image
+        createdAt
+        commentCount
+        comments {
+          _id
+        }
+      }
+    }
+  }
 `;
 
 export const ADD_COMMENT = gql`
