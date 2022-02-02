@@ -83,9 +83,9 @@ const PetForm = () => {
         </div>
       </div>
       <div className="field">
-        <label className="label">Pet Photo</label>
+        <label className="label">Image URL</label>
         <div className="control">
-          <input type="file" name="image" value={petForm.image} onChange={handleChange} />
+          <input className="input" type="text" name="image" placeholder="image" value={petForm.image} onChange={handleChange}></input>
         </div>
       </div>
       <div className="field is-grouped">
