@@ -2,6 +2,7 @@
 
 <h2 align="center"> DROP URL IN HERE</h2>
 
+
 <h3 align="center"> Drop Picture Here</h3>
 
 <p align="center">
@@ -68,3 +69,16 @@ The page will reload when you make changes.\
 :octocat: [Rahil Rahimi](https://github.com/rahilrahimi)
 :octocat: [Mike Blackwell](https://github.com/mjb4040)
 :octocat: [Arsema Kidane](https://github.com/akidane23)
+
+
+## Contributing
+✉️ Contact us with any questions ❓: 
+:octocat: [Jenn Renken](https://github.com/jenn-renken)
+:octocat: [Nadine Paez Andrade](https://github.com/ncpandrade)
+:octocat: [Rahil Rahimi](https://github.com/rahilrahimi)
+:octocat: [Mike Blackwell](https://github.com/mjb4040)
+:octocat: [Arsema ](https://github.com/mjb4040)
+
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
