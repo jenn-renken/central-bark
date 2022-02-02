@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useMutation } from '@apollo/client';
-import { ADD_COMMENT } from '../../utils/mutations';
+import { useMutation } from "@apollo/client";
+import { ADD_COMMENT } from "../../utils/mutations";
 
 const CommentForm = ({ petId }) => {
-  const [commentBody, setBody] = useState('');
+  const [commentBody, setBody] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
   const [addComment, { error }] = useMutation(ADD_COMMENT);
 
@@ -26,7 +26,7 @@ const CommentForm = ({ petId }) => {
       });
 
       // clear form value
-      setBody('');
+      setBody("");
       setCharacterCount(0);
     } catch (e) {
       console.error(e);
@@ -34,9 +34,9 @@ const CommentForm = ({ petId }) => {
   };
 
   return (
-    <div className = "container">
+    <div className="container">
       <p
-        className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}
+        className={`m-0 ${characterCount === 280 || error ? "text-error" : ""}`}
       >
         Character Count: {characterCount}/280
         {error && <span className="ml-2">Something went wrong...</span>}
@@ -45,18 +45,21 @@ const CommentForm = ({ petId }) => {
         className="flex-row justify-center justify-space-between-md align-stretch"
         onSubmit={handleFormSubmit}
       >
-        <textarea
-          placeholder="Leave a comment to this profil Pet..."
-          value={commentBody}
-          className="form-input col-12 col-md-9"
-          onChange={handleChange}
-        ></textarea>
-
+        <div class="field">
+          <label class="label">Comment</label>
+          <div class="control">
+            <textarea
+              placeholder="Leave a comment to this profil Pet..."
+              value={commentBody}
+              className="textarea"
+              onChange={handleChange}
+            ></textarea>
+          </div>
+        </div>
         <button className="button is-link " type="submit">
           Submit
         </button>
       </form>
-
       {error && <div>Something went wrong...</div>}
     </div>
   );
