@@ -8,6 +8,7 @@ export const QUERY_PETS = gql`
         petPreference
         petBreed
         name
+        image
         createdAt
         userId
         commentCount
@@ -17,7 +18,7 @@ export const QUERY_PETS = gql`
           username
           commentBody
         }
-        image
+        
   }
         
     }
@@ -58,6 +59,7 @@ export const QUERY_USER = gql`
         petBreed
         name
         createdAt
+        image
       }
       pets {
         _id
