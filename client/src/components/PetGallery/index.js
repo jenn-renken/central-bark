@@ -26,7 +26,7 @@ const PetGallery = ({ pets, title }) => {
                   <figure className="image is-4by3">
                     <img
                       src={pet.image}
-                      alt="Placeholder image"
+                      alt="image of a dog"
                     ></img>
                   </figure>
                 </div>

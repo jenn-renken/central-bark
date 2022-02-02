@@ -48,7 +48,7 @@ Protect sensitive API key information on the server.
 Have a clean repository that meets quality coding standards (file structure, naming conventions, best practices for class and id naming conventions, indentation, high-quality comments, etc.).
 Have a high-quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
 ```
-  
+
 ## Usage
 💻   
 
@@ -61,18 +61,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 
-
-
 ## Contributing
 ✉️ Contact us with any questions ❓: 
 :octocat: [Jenn Renken](https://github.com/jenn-renken)
 :octocat: [Nadine Paez Andrade](https://github.com/ncpandrade)
 :octocat: [Rahil Rahimi](https://github.com/rahilrahimi)
 :octocat: [Mike Blackwell](https://github.com/mjb4040)
-:octocat: [Arsema ](https://github.com/mjb4040)
-
-
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
+:octocat: [Arsema Kidane](https://github.com/akidane23)
