@@ -10,8 +10,8 @@ const PetGallery = ({ pets, title }) => {
   return (
     
     <div className="section">
-      <div className="container">
-        <span className="title">Make some new friends!</span>
+      <div className="section is-medium">
+        <span className="subtitle is-4 is-justify-content-center">Make some new friends!</span>
       </div>
 
     <div className="columns is-multiline is-mobile">

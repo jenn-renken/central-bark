@@ -45,18 +45,18 @@ const Profile = () => {
   
     return (
       <div>
-        <div className="flex-row mb-3">
-          <h2 className="bg-dark text-secondary p-3 display-inline-block">
-            Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+        <div className="section is-medium">
+          <h2 className="subtitle is-3 has-text-link">
+            Viewing {`${user.username}'s pets`}
           </h2>
           {/* {userParam && ( 
             <button className='btn ml-auto' onClick={handleClick}>Add Friend</button>
           )} */}
         </div>
   
-        <div className="flex-row justify-space-between mb-3">
+        <div className="container">
           <div className="col-12 mb-3 col-lg-8">
-            <PetGallery pets={user.pets} title={`${user.username}'s pets...`} />
+            <PetGallery pets={user.pets} />
           </div>
 {/* 
           <div className='col-12 col-lg-3 mb-3'>
