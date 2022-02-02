@@ -21,9 +21,9 @@ const PetDetail = (props) => {
   }
 
   return (
-    <div>
-      <div className="media-content">
-        <p className="title is-4">{pet.name}</p>
+    <div className="content-is-centered">
+      <div className="section">
+        <p className="title is-2 has-text-link">{pet.name}</p>
         <p className="subtitle is-6">{pet.petBreed}</p>
       </div>
       <div className="column is-half">
@@ -67,7 +67,7 @@ const PetDetail = (props) => {
       />
     </div> */}
             <div class="is-flex is-justify-content-space-between">
-              <button class="button is-primary" type="submit">
+              <button class="button is-link" type="submit">
                 Edit Pet
               </button>
               <button
