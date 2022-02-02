@@ -58,7 +58,7 @@ const PetGallery = ({ pets, title }) => {
                     </p> */}
                     <div>
                       <Link to={`/pet/${pet._id}`}>
-                        Connect with the pet parent!
+                        View Pet Details
                       </Link>
                     
                       <ul>
