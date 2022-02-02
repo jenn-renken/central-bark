@@ -26,7 +26,7 @@ const PetDetail = props => {
           <span style={{ fontWeight: 700 }} className="text-light">
             {pet.username}
           </span>{' '}
-          comment on {pet.createdAt}
+          comment on {new Date(pet.createdAt).toString()}
         </p>
         <div className="card-body">
           <p>{pet.petText}</p>
