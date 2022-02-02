@@ -10,7 +10,7 @@ const PetGallery = ({ pets, title }) => {
   return (
     
     <div className="section">
-      <div className="section is-medium">
+      <div className="section">
         <span className="subtitle is-4 is-justify-content-center">Make some new friends!</span>
       </div>
 
@@ -19,11 +19,11 @@ const PetGallery = ({ pets, title }) => {
         <h3>{title}</h3>
         {pets &&
           pets.map((pet) => (
-            <div className="column is-one-quarter">
+            <div className="column is-one-third">
             <div key={pet._id}>
               <div className="card ">
                 <div className="card-image">
-                  <figure className="image is-5by4">
+                  <figure className="image is-4by3">
                     <img
                       src={pet.image}
                       alt="Placeholder image"

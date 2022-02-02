@@ -45,19 +45,17 @@ const Profile = () => {
   
     return (
       <div>
-        <div className="section is-medium">
+        <div className="section">
           <h2 className="subtitle is-3 has-text-link">
             Viewing {`${user.username}'s pets`}
           </h2>
+        <div className='mb-3'>{!userParam && <PetForm />}</div>
+        <PetGallery pets={user.pets} />
           {/* {userParam && ( 
             <button className='btn ml-auto' onClick={handleClick}>Add Friend</button>
           )} */}
         </div>
   
-        <div className="container">
-          <div className="col-12 mb-3 col-lg-8">
-            <PetGallery pets={user.pets} />
-          </div>
 {/* 
           <div className='col-12 col-lg-3 mb-3'>
             <FriendList
@@ -66,8 +64,7 @@ const Profile = () => {
               friends={user.friends}
             />
           </div> */}
-        </div>
-        <div className='mb-3'>{!userParam && <PetForm />}</div>
+        
       </div>
     );
   };

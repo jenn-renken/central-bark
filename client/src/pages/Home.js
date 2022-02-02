@@ -16,11 +16,11 @@ const Home = () => {
   return (
     <main>   
       <div className='flex-row justify-space-between'>
-        {loggedIn && (
-          <div className='col-12 mb-3'>
-            <PetForm />
-          </div>
-        )}
+        {/* {loggedIn && (
+          // <div className='col-12 mb-3'>
+          //   <PetForm />
+          // </div>
+        )} */}
       <div className={`col-12 mb-3 ${loggedIn && 'col-lg-8'}`}>
         {loading ? (
           <div>Loading...</div>
