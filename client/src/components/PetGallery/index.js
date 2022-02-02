@@ -61,12 +61,12 @@ const PetGallery = ({ pets, title }) => {
                         View Pet Details
                       </Link>
                     
-                      <ul>
+                      {/* <ul>
                         <li>Name: {pet.name}</li>
                         <li>Breed: {pet.petBreed}</li>
                         <li>Personality: {pet.petPersonality}</li>
                         <li>Pet Preferences: {pet.petPreference}</li>
-                      </ul>
+                      </ul> */}
                   
                     {/* <p className="mb-0">
                     Reactions: {pet.reactionCount} || Click to{' '}
