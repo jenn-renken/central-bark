@@ -57,7 +57,7 @@ const PetForm = () => {
 
   return (
     <form className= "box" encType="multipart/form-data" onSubmit={handleFormSubmit}>
-      <h1>Enter your pet's info:</h1>
+      <p className="subtitle is-4">Enter your pet's info:</p>
       <div className="field">
         <label className="label">Name</label>
         <div className="control">
