@@ -115,10 +115,10 @@ const resolvers = {
         if(context.user._id) {
         const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { pets: args._id  } },
+            { $pull: { pets: args.petId  } },
             { new: true }
         );
-
+          await Pet.findByIdAndDelete(args.petId)
         return updatedUser;
         }
 

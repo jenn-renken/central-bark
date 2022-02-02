@@ -1,16 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { QUERY_PET } from "../utils/queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_PET, QUERY_PROFILE, QUERY_PETS } from "../utils/queries";
+import { REMOVE_PET } from "../utils/mutations";
 import Auth from "../utils/auth";
 import EditForm from '../components/EditForm';
 import CommentList from "../components/CommentList";
 import CommentForm from "../components/CommentForm";
-// import '../../assets/css/index.css';
 
 const PetDetail = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const { petId } = useParams();
+  const [removePet, { error }] = useMutation(REMOVE_PET, {
+    update(cache, { data: { removePet } }) {
+      try {
+        // could potentially not exist yet, so wrap in a try...catch
+        const { pets } = cache.readQuery({ query: QUERY_PETS });
+        cache.writeQuery({
+          query: QUERY_PETS,
+          data: { pets: [removePet, ...pets] },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+
+      const { profile } = cache.readQuery({ query: QUERY_PROFILE });
+      cache.writeQuery({
+        query: QUERY_PROFILE,
+        data: { profile: { ...profile, pets: [...profile.pets, removePet] } },
+      });
+    },
+  });
 
   const { loading, data } = useQuery(QUERY_PET, {
     variables: { id: petId },
@@ -20,6 +40,21 @@ const PetDetail = (props) => {
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  const handleRemovePet = async (event) => {
+    if (!window.confirm(`Are you sure you want to delete ${pet.name}?`)) {
+      return 
+    }
+    try {
+      await removePet({
+        variables: { petId },
+      });
+    window.alert(`${pet.name} deleted`)
+    window.location.href="/profile"
+    } catch (e) {
+      console.error(e);
+    } 
   }
 
   return (
@@ -69,6 +104,7 @@ const PetDetail = (props) => {
                     id="delete-post-btn"
                     class="button is-danger"
                     type="button"
+                    onClick={handleRemovePet}
                   >
                     Delete Pet
                   </button>
