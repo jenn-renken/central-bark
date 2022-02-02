@@ -82,7 +82,7 @@ const resolvers = {
         // create new pet with context.user._id as the userId field
         
         const pet = args;
-        delete pet.petPhoto
+        // delete pet.petPhoto
         pet.userId = context.user._id
         console.log(pet)
         const newPet = await Pet.create ( pet )

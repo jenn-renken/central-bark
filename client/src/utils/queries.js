@@ -17,6 +17,7 @@ export const QUERY_PETS = gql`
           username
           commentBody
         }
+        image
   }
         
     }
@@ -39,6 +40,7 @@ export const QUERY_PET = gql`
               username
               commentBody
             }
+            image
         }
     }
 `;

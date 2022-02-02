@@ -8,21 +8,24 @@ const PetGallery = ({ pets, title }) => {
   }
 
   return (
+    
     <div className="section">
       <div className="container">
         <span className="title">Make some new friends!</span>
       </div>
-    <div className="column is-multiline">
-      <div className="column">
+
+    <div className="columns is-multiline is-mobile">
+      
         <h3>{title}</h3>
         {pets &&
           pets.map((pet) => (
+            <div className="column is-one-quarter">
             <div key={pet._id}>
               <div className="card ">
                 <div className="card-image">
                   <figure className="image is-5by4">
                     <img
-                      src={require("../../assets/images/logo.png")}
+                      src={pet.image}
                       alt="Placeholder image"
                     ></img>
                   </figure>
@@ -75,8 +78,9 @@ const PetGallery = ({ pets, title }) => {
               </div>
             </div>
           </div>
+          </div>
         ))}
-      </div>
+      
 
     </div>
     </div>
