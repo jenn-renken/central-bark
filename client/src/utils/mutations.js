@@ -50,24 +50,28 @@ mutation addPet($petPersonality: String!, $petPreference: String!, $petBreed: St
         name
         image
         createdAt
+        commentCount
+      comments {
+        _id
+      }
 
       }
   }
 }
 `;
 
-// export const ADD_REACTION = gql`
-//   mutation addReaction($thoughtId: ID!, $reactionBody: String!) {
-//     addReaction(thoughtId: $thoughtId, reactionBody: $reactionBody) {
-//       _id
-//       reactionCount
-//       reactions {
-//         _id
-//         reactionBody
-//         createdAt
-//         username
-//       }
-//     }
-//   }
-// `;
+export const ADD_COMMENT = gql`
+  mutation addComment($petId: ID!, $commentBody: String!) {
+    addComment(petId: $petId, commentBody: $commentBody) {
+      _id
+      commentCount
+      comments {
+        _id
+        commentBody
+        createdAt
+        username
+      }
+    }
+  }
+`;
 

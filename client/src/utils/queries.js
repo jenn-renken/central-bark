@@ -10,6 +10,13 @@ export const QUERY_PETS = gql`
         name
         createdAt
         userId
+        commentCount
+        comments {
+          _id
+          createdAt
+          username
+          commentBody
+        }
         image
   }
         
@@ -26,6 +33,13 @@ export const QUERY_PET = gql`
             name
             createdAt
             username
+            commentCount
+            comments {
+              _id
+              createdAt
+              username
+              commentBody
+            }
             image
         }
     }
@@ -45,6 +59,12 @@ export const QUERY_USER = gql`
         name
         createdAt
       }
+      pets {
+        _id
+        petText
+        createdAt
+        commentCount
+      }
     }
   }
 `;
@@ -63,6 +83,13 @@ export const QUERY_PROFILE = gql`
         name
         createdAt
         username
+        commentCount
+        comments {
+          _id
+          createdAt
+          commentBody
+          username
+        }
       }
     }
   }

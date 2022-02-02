@@ -112,10 +112,10 @@ const resolvers = {
 
         throw new AuthenticationError('You need to be logged in!');
     },
-    addComment: async (parent, { userId, commentBody }, context) => {
+    addComment: async (parent, { petId, commentBody }, context) => {
       if (context.user) {
         const updatedPet = await Pet.findOneAndUpdate(
-          { _id: userId },
+          { _id: petId },
           { $push: { comments: { commentBody, username: context.user.username } } },
           { new: true, runValidators: true }
         );
