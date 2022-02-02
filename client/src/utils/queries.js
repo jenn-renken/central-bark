@@ -10,6 +10,7 @@ export const QUERY_PETS = gql`
         name
         createdAt
         userId
+        image
   }
         
     }
@@ -25,6 +26,7 @@ export const QUERY_PET = gql`
             name
             createdAt
             username
+            image
         }
     }
 `;
