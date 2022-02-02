@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+<h1 align="center">Central Bark</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h2 align="center"> DROP URL IN HERE</h2>
 
-## Available Scripts
+<p align="center">
+    <img src="https://img.shields.io/badge/javascript-yellow" />
+    <img src="https://img.shields.io/badge/graphQL-orange" />
+    <img src="https://img.shields.io/badge/react-blue"  />
+    <img src="https://img.shields.io/badge/apollo-red"  />
+    <img src="https://img.shields.io/badge/node-blue"  />
+    <img src="https://img.shields.io/badge/jest-green" />
+    <img src="https://img.shields.io/badge/MongoDB-yellow" />
+</p>
+
+## Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Description](#description)
+- [User Story](#user-story)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Usage](#usage)
+- [Contributing](#contributing)
+
+## Description
+
+Central Bark allows you to set up playdates with other dogs and help you dog build a relationship with other doggies before you dive into the terrifying world of owning dogs that are really into pyramid schemes.
+
+## User Story
+
+```
+When a new user comes to Central Bark, they can browse pictures and profiles of dogs, create a profile for their dog, update their profile, delete their profile, and contact other K9 enthusiasts. 
+```
+
+## Acceptance Criteria
+
+```
+Use React for the front end.
+Use GraphQL with a Node.js and Express.js server.
+Use MongoDB and the Mongoose ODM for the database.
+Use queries and mutations for retrieving, adding, updating, and deleting data.
+Be deployed using Heroku (with data).
+Have a polished UI.
+Be responsive.
+Be interactive (i.e., accept and respond to user input).
+Include authentication (JWT).
+Protect sensitive API key information on the server.
+Have a clean repository that meets quality coding standards (file structure, naming conventions, best practices for class and id naming conventions, indentation, high-quality comments, etc.).
+Have a high-quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
+```
+  
+## Usage
+💻   
 
 In the project directory, you can run:
 
-### `npm start`
+`npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Contributing
+✉️ Contact us with any questions ❓: 
+:octocat: [Jenn Renken](https://github.com/jenn-renken)
+:octocat: [Nadine Paez Andrade](https://github.com/ncpandrade)
+:octocat: [Rahil Rahimi](https://github.com/rahilrahimi)
+:octocat: [Mike Blackwell](https://github.com/mjb4040)
+:octocat: [Arsema ](https://github.com/mjb4040)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
