@@ -1,14 +1,39 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { QUERY_PET } from '../utils/queries';
-import Auth from '../utils/auth';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_PET, QUERY_PROFILE, QUERY_PETS } from "../utils/queries";
+import { REMOVE_PET } from "../utils/mutations";
+import Auth from "../utils/auth";
+import EditForm from '../components/EditForm';
+import CommentList from "../components/CommentList";
+import CommentForm from "../components/CommentForm";
 
-const PetDetail = props => {
-  const { id: petId } = useParams();
+const PetDetail = (props) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const { petId } = useParams();
+  const [removePet, { error }] = useMutation(REMOVE_PET, {
+    update(cache, { data: { removePet } }) {
+      try {
+        // could potentially not exist yet, so wrap in a try...catch
+        const { pets } = cache.readQuery({ query: QUERY_PETS });
+        cache.writeQuery({
+          query: QUERY_PETS,
+          data: { pets: [removePet, ...pets] },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+
+      const { profile } = cache.readQuery({ query: QUERY_PROFILE });
+      cache.writeQuery({
+        query: QUERY_PROFILE,
+        data: { profile: { ...profile, pets: [...profile.pets, removePet] } },
+      });
+    },
+  });
 
   const { loading, data } = useQuery(QUERY_PET, {
-    variables: { id: petId }
+    variables: { id: petId },
   });
 
   const pet = data?.pet || {};
@@ -17,22 +42,82 @@ const PetDetail = props => {
     return <div>Loading...</div>;
   }
 
+  const handleRemovePet = async (event) => {
+    if (!window.confirm(`Are you sure you want to delete ${pet.name}?`)) {
+      return 
+    }
+    try {
+      await removePet({
+        variables: { petId },
+      });
+    window.alert(`${pet.name} deleted`)
+    window.location.href="/profile"
+    } catch (e) {
+      console.error(e);
+    } 
+  }
+
   return (
-    <div>
-      <div className="card mb-3">
-        <p className="card-header">
+    <div className="content-is-centered">
+      <div className="section">
+        <p className="title is-2 has-text-link">{pet.name}</p>
+        <p className="subtitle is-6">{pet.petBreed}</p>
+      </div>
+      <div className="column is-half">
+        <div className="card">
+          <div className="card-image">
+            <div className="media-left">
+              <figure className="image is-4by3">
+                <img src={pet.image} alt="image of a dog"></img>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <div className="card-content">
+          {/* <p className="card-header">
           <span style={{ fontWeight: 700 }} className="text-light">
             {pet.username}
           </span>{' '}
-          pet on {pet.createdAt}
-        </p>
-        <div className="card-body">
-          <p>{pet.petText}</p>
+          Pet Detail {new Date(pet.createdAt).toLocaleString}
+        </p> */}
+          {/* <div className="media-content">
+           <p className="title is-4">{pet.name}</p>
+           <p className="subtitle is-6">{pet.petBreed}</p>
+          </div> */}
+          <ul>
+            <li>Name: {pet.name}</li>
+            <li>Breed: {pet.petBreed}</li>
+            <li>Personality: {pet.petPersonality}</li>
+            <li>Pet Preferences: {pet.petPreference}</li>
+          </ul>
+          <div className="card-body">
+            <p>{pet.petText}</p>
+          </div>
+          {!isEditing && Auth.loggedIn() && Auth.getProfile().data._id == pet.userId &&
+            <form class="edit-post-form">
+              <div class="is-flex is-justify-content-space-between">
+                  <button class="button is-primary" type="button" onClick={() => setIsEditing(true)}>
+                    Edit Pet 
+                  </button>
+                  <button
+                    id="delete-post-btn"
+                    class="button is-danger"
+                    type="button"
+                    onClick={handleRemovePet}
+                  >
+                    Delete Pet
+                  </button>
+              </div>
+            </form>
+          }
+          {isEditing && <EditForm pet={pet} setIsEditing={setIsEditing}></EditForm>}
+        </div>
+        <div className="card-content">
+          {pet.commentCount > 0 && <CommentList comments={pet.comments} />}
+          {Auth.loggedIn() && <CommentForm petId={pet._id} />}
         </div>
       </div>
-
-      {/* {pet.reactionCount > 0 && <ReactionList reactions={pet.reactions} />}
-      {Auth.loggedIn() && <ReactionForm petId={pet._id} />} */}
     </div>
   );
 };

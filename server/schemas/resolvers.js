@@ -76,15 +76,8 @@ const resolvers = {
     },
     addPet: async (parent, args, context) => {
       if (context.user._id) {
-        
-        // make pet MODEL instead of just schema
-        // add userId field to pet model
-        // create new pet with context.user._id as the userId field
-        
         const pet = args;
-        delete pet.petPhoto
         pet.userId = context.user._id
-        console.log(pet)
         const newPet = await Pet.create ( pet )
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
@@ -99,32 +92,50 @@ const resolvers = {
 
       throw new AuthenticationError('You need to be logged in!');
     },
+    updatePet: async (parent, args, context) => {
+      if(!context.user._id) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+      const user = await User.findById(
+        { _id: context.user._id }
+      );
+      const petUpdate = args; 
+      let pet = user.pets.find(p => p._id == petUpdate._id);
+      if(!pet) {
+        throw new AuthenticationError(`You don't own ${petUpdate.name}!`);
+      }
+      pet = { ...pet, ...petUpdate };
+      const updatedPet = await Pet.updateOne ( pet )
+      console.log(updatedPet);
+      user.pets = await Pet.find({"_id":  { $in: user.pets }})
+
+      return user;
+    },
     removePet: async (parent, args, context) => {
-        if(context.user) {
+        if(context.user._id) {
         const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { pets: args._id  } },
+            { $pull: { pets: args.petId  } },
             { new: true }
         );
-
+          await Pet.findByIdAndDelete(args.petId)
         return updatedUser;
         }
 
         throw new AuthenticationError('You need to be logged in!');
+    },
+    addComment: async (parent, { petId, commentBody }, context) => {
+      if (context.user) {
+        const updatedPet = await Pet.findOneAndUpdate(
+          { _id: petId },
+          { $push: { comments: { commentBody, username: context.user.username } } },
+          { new: true, runValidators: true }
+        );
+
+        return updatedPet;
+      }
+      throw new AuthenticationError('You need to be logged in!');
     }
-    // addComment: async (parent, { petId, commentBody }, context) => {
-    //   if (context.user) {
-    //     const updatedPet = await Pet.findOneAndUpdate(
-    //       { _id: petId },
-    //       { $push: { comment: { commentBody, username: context.user.username } } },
-    //       { new: true, runValidators: true }
-    //     );
-
-    //     return updatedPet;
-    //   }
-
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
 //     addFriend: async (parent, { friendId }, context) => {
 //       if (context.user) {
 //         const updatedUser = await User.findOneAndUpdate(

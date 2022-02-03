@@ -1,28 +1,20 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_PET } from "../../utils/mutations";
+import { UPDATE_PET } from "../../utils/mutations";
 import { QUERY_PETS, QUERY_PROFILE } from "../../utils/queries";
 
-const emptyPetForm = 
-  {
-    name: "",
-    petBreed: "",
-    petPreference: "",
-    petPersonality: "",
-    image: ""
-  }
-const PetForm = () => {
-  const [petForm, setPetForm] = useState({...emptyPetForm});
+const EditForm = ({pet, setIsEditing}) => {
+  const [editForm, setEditForm] = useState({...pet});
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addPet, { error }] = useMutation(ADD_PET, {
-    update(cache, { data: { addPet } }) {
+  const [updatePet, { error }] = useMutation(UPDATE_PET, {
+    update(cache, { data: { updatePet } }) {
       try {
         // could potentially not exist yet, so wrap in a try...catch
         const { pets } = cache.readQuery({ query: QUERY_PETS });
         cache.writeQuery({
           query: QUERY_PETS,
-          data: { pets: [addPet, ...pets] },
+          data: { pets: [updatePet, ...pets] },
         });
       } catch (e) {
         console.error(e);
@@ -31,24 +23,23 @@ const PetForm = () => {
       const { profile } = cache.readQuery({ query: QUERY_PROFILE });
       cache.writeQuery({
         query: QUERY_PROFILE,
-        data: { profile: { ...profile, pets: [...profile.pets, addPet] } },
+        data: { profile: { ...profile, pets: [...profile.pets, updatePet] } },
       });
     },
   });
 
   const handleChange = (event) => {
-   setPetForm({...petForm, [event.target.name]: event.target.value});
+   setEditForm({...editForm, [event.target.name]: event.target.value});
   };
 
   const handleFormSubmit = async (event) => {
     // event.preventDefault();
 
     try {
-      await addPet({
-        variables: { ...petForm },
+      await updatePet({
+        variables: { ...editForm },
       });
-
-      setPetForm({...emptyPetForm});
+      setIsEditing(false);
       setCharacterCount(0);
     } catch (e) {
       console.error(e);
@@ -61,31 +52,31 @@ const PetForm = () => {
       <div className="field">
         <label className="label">Name</label>
         <div className="control">
-          <input className="input" type="text" name="name" placeholder="Name" value={petForm.name} onChange={handleChange}></input>
+          <input className="input" type="text" name="name" placeholder="Name" value={editForm.name} onChange={handleChange}></input>
         </div>
       </div>
       <div className="field">
         <label className="label">Breed</label>
         <div className="control">
-          <input className="input" type="text" name="petBreed" placeholder="Breed" value={petForm.petBreed} onChange={handleChange}></input>
+          <input className="input" type="text" name="petBreed" placeholder="Breed" value={editForm.petBreed} onChange={handleChange}></input>
         </div>
       </div>
       <div className="field">
         <label className="label">Personality</label>
         <div className="control">
-          <textarea className="textarea" placeholder="Personality" name="petPersonality" value={petForm.petPersonality} onChange={handleChange}></textarea>
+          <textarea className="textarea" placeholder="Personality" name="petPersonality" value={editForm.petPersonality} onChange={handleChange}></textarea>
         </div>
       </div>
       <div className="field">
         <label className="label">Pet Preferences</label>
         <div className="control">
-          <textarea className="textarea" placeholder="Pet Preferences" name="petPreference" value={petForm.petPreference} onChange={handleChange}></textarea>
+          <textarea className="textarea" placeholder="Pet Preferences" name="petPreference" value={editForm.petPreference} onChange={handleChange}></textarea>
         </div>
       </div>
       <div className="field">
         <label className="label">Image URL</label>
         <div className="control">
-          <input className="input" type="text" name="image" placeholder="image" value={petForm.image} onChange={handleChange}></input>
+          <input className="input" type="text" name="image" placeholder="image" value={editForm.image} onChange={handleChange}></input>
         </div>
       </div>
       <div className="field is-grouped">
@@ -100,4 +91,4 @@ const PetForm = () => {
   );
 };
 
-export default PetForm;
+export default EditForm;

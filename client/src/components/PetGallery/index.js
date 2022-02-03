@@ -8,22 +8,25 @@ const PetGallery = ({ pets, title }) => {
   }
 
   return (
+    
     <div className="section">
-      <div className="container">
-        <span className="title">Make some new friends!</span>
+      <div className="section">
+        <span className="subtitle is-4 is-justify-content-center">Make some new friends!</span>
       </div>
-    <div className="column is-multiline">
-      <div className="column">
+
+    <div className="columns is-multiline is-mobile">
+      
         <h3>{title}</h3>
         {pets &&
           pets.map((pet) => (
+            <div className="column is-one-third">
             <div key={pet._id}>
               <div className="card ">
                 <div className="card-image">
-                  <figure className="image is-5by4">
+                  <figure className="image is-4by3">
                     <img
-                      src={require("../../assets/images/logo.png")}
-                      alt="Placeholder image"
+                      src={pet.image}
+                      alt="image of a dog"
                     ></img>
                   </figure>
                 </div>
@@ -54,16 +57,16 @@ const PetGallery = ({ pets, title }) => {
                       </Link>{" "}
                     </p> */}
                     <div>
-                      <Link to={`/pet/${pet.userId}`}>
-                        Connect with the pet parent!
+                      <Link to={`/pet/${pet._id}`}>
+                        View Pet Details
                       </Link>
                     
-                      <ul>
+                      {/* <ul>
                         <li>Name: {pet.name}</li>
                         <li>Breed: {pet.petBreed}</li>
                         <li>Personality: {pet.petPersonality}</li>
                         <li>Pet Preferences: {pet.petPreference}</li>
-                      </ul>
+                      </ul> */}
                   
                     {/* <p className="mb-0">
                     Reactions: {pet.reactionCount} || Click to{' '}
@@ -75,8 +78,9 @@ const PetGallery = ({ pets, title }) => {
               </div>
             </div>
           </div>
+          </div>
         ))}
-      </div>
+      
 
     </div>
     </div>
