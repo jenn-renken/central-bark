@@ -23,7 +23,7 @@ const PetGallery = ({ pets, title }) => {
             <div key={pet._id}>
               <div className="card ">
                 <div className="card-image">
-                  <figure className="image is-4by3">
+                  <figure className="image is-256x256">
                     <img
                       src={pet.image}
                       alt="image of a dog"

@@ -33,7 +33,7 @@ const EditForm = ({pet, setIsEditing}) => {
   };
 
   const handleFormSubmit = async (event) => {
-    // event.preventDefault();
+    event.preventDefault();
 
     try {
       await updatePet({
