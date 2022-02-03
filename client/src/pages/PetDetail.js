@@ -61,13 +61,12 @@ const PetDetail = (props) => {
     <div className="content-is-centered">
       <div className="section">
         <p className="title is-2 has-text-link">{pet.name}</p>
-        <p className="subtitle is-6">{pet.petBreed}</p>
       </div>
       <div className="column is-half">
         <div className="card">
           <div className="card-image">
             <div className="media-left">
-              <figure className="image is-4by3">
+              <figure className="image is-256x256">
                 <img src={pet.image} alt="image of a dog"></img>
               </figure>
             </div>
@@ -95,14 +94,14 @@ const PetDetail = (props) => {
             <p>{pet.petText}</p>
           </div>
           {!isEditing && Auth.loggedIn() && Auth.getProfile().data._id == pet.userId &&
-            <form class="edit-post-form">
-              <div class="is-flex is-justify-content-space-between">
-                  <button class="button is-primary" type="button" onClick={() => setIsEditing(true)}>
+            <form className="edit-post-form">
+              <div className="is-flex is-justify-content-space-between">
+                  <button className="button is-primary" type="button" onClick={() => setIsEditing(true)}>
                     Edit Pet 
                   </button>
                   <button
                     id="delete-post-btn"
-                    class="button is-danger"
+                    className="button is-danger"
                     type="button"
                     onClick={handleRemovePet}
                   >

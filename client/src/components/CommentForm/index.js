@@ -45,9 +45,9 @@ const CommentForm = ({ petId }) => {
         className="flex-row justify-center justify-space-between-md align-stretch"
         onSubmit={handleFormSubmit}
       >
-        <div class="field">
-          <label class="label">Comment</label>
-          <div class="control">
+        <div className="field">
+          <label className="label">Comment</label>
+          <div className="control">
             <textarea
               placeholder="Leave a comment to this profil Pet..."
               value={commentBody}
