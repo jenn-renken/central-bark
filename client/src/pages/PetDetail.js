@@ -62,7 +62,7 @@ const PetDetail = (props) => {
       <div className="section">
         <p className="title is-2 has-text-link">{pet.name}</p>
       </div>
-      <div className="column is-half">
+      <div className="column is-three-quarters">
         <div className="card">
           <div className="card-image">
             <div className="media-left">
@@ -74,16 +74,6 @@ const PetDetail = (props) => {
         </div>
 
         <div className="card-content">
-          {/* <p className="card-header">
-          <span style={{ fontWeight: 700 }} className="text-light">
-            {pet.username}
-          </span>{' '}
-          Pet Detail {new Date(pet.createdAt).toLocaleString}
-        </p> */}
-          {/* <div className="media-content">
-           <p className="title is-4">{pet.name}</p>
-           <p className="subtitle is-6">{pet.petBreed}</p>
-          </div> */}
           <ul>
             <li>Name: {pet.name}</li>
             <li>Breed: {pet.petBreed}</li>
