@@ -105,7 +105,7 @@ const resolvers = {
         throw new AuthenticationError(`You don't own ${petUpdate.name}!`);
       }
       pet = { ...pet, ...petUpdate };
-      const updatedPet = await Pet.updateOne ( pet )
+      const updatedPet = await Pet.updateOne ( {_id: pet._id}, {$set: pet} )
       console.log(updatedPet);
       user.pets = await Pet.find({"_id":  { $in: user.pets }})
 

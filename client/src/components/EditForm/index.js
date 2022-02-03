@@ -7,26 +7,26 @@ const EditForm = ({pet, setIsEditing}) => {
   const [editForm, setEditForm] = useState({...pet});
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [updatePet, { error }] = useMutation(UPDATE_PET, {
-    update(cache, { data: { updatePet } }) {
-      try {
-        // could potentially not exist yet, so wrap in a try...catch
-        const { pets } = cache.readQuery({ query: QUERY_PETS });
-        cache.writeQuery({
-          query: QUERY_PETS,
-          data: { pets: [updatePet, ...pets] },
-        });
-      } catch (e) {
-        console.error(e);
-      }
+  const [updatePet, { error }] = useMutation(UPDATE_PET)//, {
+    // update(cache, { data: { updatePet } }) {
+    //   try {
+    //     // could potentially not exist yet, so wrap in a try...catch
+    //     const { pets } = cache.readQuery({ query: QUERY_PETS });
+    //     cache.writeQuery({
+    //       query: QUERY_PETS,
+    //       data: { pets: [updatePet, ...pets] },
+    //     });
+    //   } catch (e) {
+    //     console.error(e);
+    //   }
 
-      const { profile } = cache.readQuery({ query: QUERY_PROFILE });
-      cache.writeQuery({
-        query: QUERY_PROFILE,
-        data: { profile: { ...profile, pets: [...profile.pets, updatePet] } },
-      });
-    },
-  });
+    //   const { profile } = cache.readQuery({ query: QUERY_PROFILE });
+    //   cache.writeQuery({
+    //     query: QUERY_PROFILE,
+    //     data: { profile: { ...profile, pets: [...profile.pets, updatePet] } },
+    //   });
+    // },
+  //});
 
   const handleChange = (event) => {
    setEditForm({...editForm, [event.target.name]: event.target.value});

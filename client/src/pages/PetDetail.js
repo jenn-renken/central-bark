@@ -61,13 +61,12 @@ const PetDetail = (props) => {
     <div className="content-is-centered">
       <div className="section">
         <p className="title is-2 has-text-link">{pet.name}</p>
-        <p className="subtitle is-6">{pet.petBreed}</p>
       </div>
       <div className="column is-half">
         <div className="card">
           <div className="card-image">
             <div className="media-left">
-              <figure className="image is-4by3">
+              <figure className="image is-256x256">
                 <img src={pet.image} alt="image of a dog"></img>
               </figure>
             </div>
